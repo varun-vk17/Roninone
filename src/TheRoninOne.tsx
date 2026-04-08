@@ -132,7 +132,7 @@ export default function TheRoninOne() {
                     <div className="relative z-10 p-10 md:p-16 flex flex-col gap-10">
 
                         {/* Headline */}
-                        <p className="font-sans text-xl md:text-2xl text-white/85 leading-snug tracking-tight font-light">
+                        <p className="font-sans text-2xl md:text-3xl text-white/85 leading-snug tracking-tight font-light">
                             A system for building landing pages that actually convert.
                         </p>
 
@@ -141,11 +141,11 @@ export default function TheRoninOne() {
 
                         {/* Subtext */}
                         <div className="space-y-5">
-                            <p className="font-sans text-base text-white/50 leading-relaxed tracking-tight">
+                            <p className="font-sans text-lg text-white/50 leading-relaxed tracking-tight">
                                 Ronin One isn't a design service.<br />
                                 It's a structured system built on clarity, conversion logic, and user behavior — designed to turn attention into revenue.
                             </p>
-                            <p className="font-sans text-base text-white/50 leading-relaxed tracking-tight">
+                            <p className="font-sans text-lg text-white/50 leading-relaxed tracking-tight">
                                 Every page is built using the Ronin System, combining messaging, structure, and decision-driven design into a single focused experience.
                             </p>
                         </div>
@@ -154,7 +154,7 @@ export default function TheRoninOne() {
                         <div className="w-full h-px bg-white/[0.07]" />
 
                         {/* Experience layer */}
-                        <p className="font-sans text-base text-white/40 leading-relaxed tracking-tight italic">
+                        <p className="font-sans text-lg text-white/40 leading-relaxed tracking-tight italic">
                             From the first interaction to final delivery, every step is designed to be clear, focused, and frictionless — just like the pages we build.
                         </p>
 
