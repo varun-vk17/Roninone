@@ -24,7 +24,7 @@ export default function App() {
   const rotate = useTransform(scrollY, [0, 2000], [0, 720]);
 
   useEffect(() => {
-    const duration = 2500;
+    const duration = 3000;
     const interval = 50;
     const steps = duration / interval;
     let currentStep = 0;
@@ -34,7 +34,7 @@ export default function App() {
       setProgress(Math.min(100, Math.floor((currentStep / steps) * 100)));
       if (currentStep >= steps) {
         clearInterval(timer);
-        setTimeout(() => setLoading(false), 900);
+        setTimeout(() => setLoading(false), 1400);
       }
     }, interval);
 
@@ -48,71 +48,47 @@ export default function App() {
           <motion.div
             key="loader"
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#000] overflow-hidden pointer-events-none"
-            exit={{ opacity: 0, transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] } }}
+            exit={{ opacity: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 } }}
           >
-            {/* Rotated World for the Diagonal Cut */}
-            <div className="absolute w-[250vw] h-[250vh] flex flex-col justify-center items-center rotate-[-25deg] z-10">
-
-              {/* Top Half */}
-              <motion.div
-                className="absolute top-0 left-0 w-full h-1/2 bg-[#000]"
-                exit={{ y: "-100%", transition: { duration: 1.4, ease: [0.76, 0, 0.24, 1], delay: 0.1 } }}
-              />
-
-              {/* Bottom Half */}
-              <motion.div
-                className="absolute bottom-0 left-0 w-full h-1/2 bg-[#000]"
-                exit={{ y: "100%", transition: { duration: 1.4, ease: [0.76, 0, 0.24, 1], delay: 0.1 } }}
-              />
-
-              {/* The Katana Slash with Brand Colors */}
-              <motion.div
-                className="absolute top-1/2 left-0 w-full h-[3px] bg-gradient-to-r from-cyan-400 via-blue-500 to-[#5443d3] -translate-y-1/2 shadow-[0_0_40px_10px_rgba(0,255,204,0.6)] mix-blend-screen"
-                initial={{ scaleX: 0, opacity: 0, originX: 0 }}
-                animate={
-                  progress === 100
-                    ? { scaleX: 1, opacity: [0, 1, 1] }
-                    : { scaleX: 0, opacity: 0 }
-                }
-                transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-                exit={{ scaleY: 0, opacity: 0, transition: { duration: 0.4 } }}
+            {/* RONIN — fully invisible until revealed left-to-right via progress */}
+            <div className="relative mb-8 select-none">
+              {/* Spacer to hold layout — invisible placeholder */}
+              <span className="font-display text-[5rem] md:text-[9rem] font-medium tracking-[0.08em] whitespace-nowrap invisible">
+                RONIN
+              </span>
+              {/* Bright reveal — clipped left-to-right via progress */}
+              <div
+                className="absolute inset-0 overflow-hidden"
+                style={{ width: `${progress}%` }}
               >
-                <div className="absolute inset-0 bg-white/50 blur-[2px]" />
-              </motion.div>
+                <span className="font-display text-[5rem] md:text-[9rem] font-medium tracking-[0.08em] text-white whitespace-nowrap">
+                  RONIN
+                </span>
+              </div>
             </div>
 
-            {/* Progress Indicator (Unrotated - Positioned Bottom) */}
+            {/* Progress bar */}
+            <div className="relative w-40 md:w-52 h-px bg-white/[0.06]">
+              <div
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-[#5443d3]"
+                style={{ width: `${progress}%`, transition: 'width 0.08s linear' }}
+              />
+            </div>
+
+            {/* Katana slash — fires when progress hits 100 */}
             <motion.div
-              className="absolute bottom-16 md:bottom-24 z-30 flex flex-col items-center w-56 md:w-64"
-              animate={progress === 100 
-                ? { opacity: 0, y: 20, filter: "blur(10px)" } 
-                : { opacity: [0.6, 1, 0.6], filter: ["blur(2px)", "blur(0px)", "blur(2px)"] }
+              className="absolute top-1/2 left-0 w-full h-[2px] -translate-y-1/2 pointer-events-none"
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={
+                progress === 100
+                  ? { scaleX: 1, opacity: 1, originX: 0 }
+                  : { scaleX: 0, opacity: 0, originX: 0 }
               }
-              transition={progress === 100 ? { duration: 0.4, ease: "easeIn" } : { duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               exit={{ opacity: 0 }}
             >
-              {/* Katana Blade Progress Bar */}
-              <div className="w-full h-[1px] bg-white/10 relative">
-                {/* The Blade Edge */}
-                <motion.div
-                  className="absolute top-0 left-0 h-full bg-gradient-to-r from-transparent via-cyan-400 to-blue-500 shadow-[0_0_12px_rgba(0,255,204,0.8)] mix-blend-screen"
-                  initial={{ width: "0%" }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.1, ease: "linear" }}
-                />
-                {/* The Spark / Tip */}
-                <motion.div
-                  className="absolute top-1/2 h-[3px] w-[3px] bg-white rounded-full shadow-[0_0_15px_3px_rgba(255,255,255,1)] -translate-y-1/2 -translate-x-1/2"
-                  initial={{ left: "0%" }}
-                  animate={{ left: `${progress}%` }}
-                  transition={{ duration: 0.1, ease: "linear" }}
-                />
-              </div>
-
-              <div className="flex justify-between w-full mt-4 font-mono text-[9px] md:text-[10px] text-white/50 tracking-[0.3em] uppercase">
-                <span>Unsheathing_</span>
-                <span>{progress}%</span>
-              </div>
+              <div className="w-full h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-[#5443d3] shadow-[0_0_30px_6px_rgba(34,211,238,0.5)]" />
+              <div className="absolute inset-0 bg-white/40 blur-[2px]" />
             </motion.div>
           </motion.div>
         ) : (
