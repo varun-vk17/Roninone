@@ -46,9 +46,10 @@ export default function App() {
   useEffect(() => {
     // Initialize Lenis for that super smooth, Framer-like scrolling
     const lenis = new Lenis({
-      // Configure for soft smooth scroll feel
-      lerp: 0.08,
-      wheelMultiplier: 1,
+      // Superfast smooth scroll feel
+      lerp: 0.15,
+      wheelMultiplier: 1.5,
+      touchMultiplier: 2,
     });
 
     // Synchronize Lenis scrolling with GSAP ScrollTrigger
