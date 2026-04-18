@@ -53,7 +53,7 @@ export default function TheApply() {
                     <span className="font-mono text-[10px] text-white tracking-[0.4em] uppercase opacity-70">Apply</span>
                     <div className="h-px w-6 bg-white/30" />
                 </div>
-                <h2 className="ac font-display text-5xl md:text-[4.5rem] lg:text-[5rem] text-white font-medium tracking-tighter leading-[1.0]">
+                <h2 className="ac font-display text-4xl sm:text-5xl md:text-[4.5rem] lg:text-[5rem] text-white font-medium tracking-tighter leading-[1.0]">
                     The page your business<br />has been waiting for.
                 </h2>
             </div>
@@ -99,14 +99,14 @@ export default function TheApply() {
 
                     {/* ── RIGHT — The CTA panel (frosted) ── */}
                     <div className="relative z-10 flex-1 flex flex-col justify-between p-3">
-                        <div className="h-full rounded-2xl bg-[#020202]/85 border border-white/20 shadow-[inset_0_0_30px_rgba(0,0,0,1),0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-md p-8 flex flex-col justify-between gap-10">
+                        <div className="h-full rounded-2xl bg-[#020202]/85 border border-white/20 shadow-[inset_0_0_30px_rgba(0,0,0,1),0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between gap-8 sm:gap-10">
                             {/* Stitched inner */}
                             <div className="absolute inset-[10px] rounded-xl border border-white/10 border-dashed pointer-events-none" />
 
                             {/* Top — copy */}
-                            <div className="relative z-10 space-y-5">
+                            <div className="relative z-10 space-y-4 sm:space-y-5">
                                 <span className="font-mono text-[9px] text-white/40 tracking-[0.3em] uppercase block">Ronin One</span>
-                                <p className="font-display text-2xl md:text-3xl text-white font-medium tracking-tight leading-tight">
+                                <p className="font-display text-xl sm:text-2xl md:text-3xl text-white font-medium tracking-tight leading-tight">
                                     We work with businesses ready to stop waiting and start performing.
                                 </p>
                                 <p className="font-sans text-sm text-white/40 leading-relaxed tracking-tight">
@@ -125,7 +125,7 @@ export default function TheApply() {
                                     <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/50">3 spots open</span>
                                 </div>
                                 {/* CTA */}
-                                <button onClick={openApplyModal} className="group flex items-center gap-3 bg-white text-black font-display font-semibold text-sm md:text-base px-8 py-4 rounded-full hover:bg-white/90 transition-all duration-300 shadow-[0_0_50px_rgba(255,255,255,0.18)] hover:shadow-[0_0_80px_rgba(255,255,255,0.3)] self-start">
+                                <button onClick={openApplyModal} className="group flex items-center gap-2 sm:gap-3 bg-white text-black font-display font-semibold text-sm md:text-base px-6 py-3 sm:px-8 sm:py-4 rounded-full hover:bg-white/90 transition-all duration-300 shadow-[0_0_50px_rgba(255,255,255,0.18)] hover:shadow-[0_0_80px_rgba(255,255,255,0.3)] self-start">
                                     Apply for Ronin One
                                     <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
                                 </button>
@@ -139,7 +139,7 @@ export default function TheApply() {
             <div className="ac w-full flex flex-col items-center text-center px-6 pb-48 max-w-4xl mx-auto space-y-4">
                 <div className="flex flex-col items-center gap-1">
                     <span className="font-mono text-[11px] tracking-[0.4em] uppercase text-white/30">THE RONIN ONE IS</span>
-                    <span className="font-display text-2xl md:text-3xl tracking-tight text-white font-bold">A STANDARD.</span>
+                    <span className="font-display text-xl sm:text-2xl md:text-3xl tracking-tight text-white font-bold">A STANDARD.</span>
                 </div>
             </div>
 

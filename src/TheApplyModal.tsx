@@ -31,7 +31,7 @@ interface FormState {
 
 // ─── Input / Option Styles ───────────────────────────────────
 const inputCls =
-  'w-full bg-white/[0.03] border border-white/10 rounded-xl px-5 py-4 font-sans text-white text-sm outline-none transition-all duration-300 focus:bg-white/[0.05] focus:border-cyan-400/60 focus:shadow-[0_0_20px_rgba(34,211,238,0.1)] placeholder:text-white/25';
+  'w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 sm:px-5 sm:py-4 font-sans text-white text-sm outline-none transition-all duration-300 focus:bg-white/[0.05] focus:border-cyan-400/60 focus:shadow-[0_0_20px_rgba(34,211,238,0.1)] placeholder:text-white/25';
 
 function OptionBtn({
   selected,
@@ -46,7 +46,7 @@ function OptionBtn({
     <button
       type="button"
       onClick={onClick}
-      className={`w-full text-left px-5 py-4 rounded-xl border text-sm font-sans transition-all duration-300 ${
+      className={`w-full text-left px-4 py-3 sm:px-5 sm:py-4 rounded-xl border text-sm font-sans transition-all duration-300 ${
         selected
           ? 'border-cyan-400/60 bg-cyan-400/5 text-white shadow-[0_0_16px_rgba(34,211,238,0.1)]'
           : 'border-white/10 bg-white/[0.02] text-white/60 hover:border-white/20 hover:text-white/80'
@@ -83,7 +83,7 @@ function Eyebrow({ text }: { text: string }) {
 
 function Headline({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="font-display text-3xl md:text-4xl text-white font-medium tracking-tight leading-snug">
+    <h2 className="font-display text-2xl sm:text-3xl md:text-4xl text-white font-medium tracking-tight leading-snug">
       {children}
     </h2>
   );
@@ -115,7 +115,7 @@ function PrimaryBtn({
       disabled={disabled}
       whileHover={{ scale: disabled ? 1 : 1.02 }}
       whileTap={{ scale: disabled ? 1 : 0.98 }}
-      className="w-full rounded-xl bg-white px-8 py-4 font-display font-semibold text-black text-sm shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:shadow-[0_0_40px_rgba(255,255,255,0.16)] transition-all duration-300 disabled:opacity-40"
+      className="w-full rounded-xl bg-white px-6 py-3 sm:px-8 sm:py-4 font-display font-semibold text-black text-sm shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:shadow-[0_0_40px_rgba(255,255,255,0.16)] transition-all duration-300 disabled:opacity-40"
     >
       {children}
     </motion.button>
@@ -412,7 +412,7 @@ export default function TheApplyModal() {
             </div>
 
             {/* Header row */}
-            <div className="relative z-10 flex items-center justify-between px-8 pt-8 pb-2">
+            <div className="relative z-10 flex items-center justify-between px-5 sm:px-8 pt-6 sm:pt-8 pb-2">
               <span className="font-mono text-[9px] text-white/25 tracking-[0.35em] uppercase">Ronin One</span>
               <button
                 onClick={close}
@@ -426,7 +426,7 @@ export default function TheApplyModal() {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 px-8 pb-10 pt-6">
+            <div className="relative z-10 px-5 sm:px-8 pb-8 sm:pb-10 pt-5 sm:pt-6">
               <AnimatePresence mode="wait">
                 <div key={step}>
                   {stepContent[step]}

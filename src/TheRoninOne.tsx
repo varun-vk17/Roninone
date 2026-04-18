@@ -113,9 +113,9 @@ export default function TheRoninOne() {
 
                 {/* The Headline */}
                 <div className="cb pb-28">
-                    <h2 className="font-display text-5xl md:text-[4.5rem] lg:text-[5.5rem] text-white font-medium tracking-tighter leading-[1.0]">
+                    <h2 className="font-display text-4xl sm:text-5xl md:text-[4.5rem] lg:text-[5.5rem] text-white font-medium tracking-tighter leading-[1.0]">
                         Ronin One.<br />
-                        <span className="text-white/60 whitespace-nowrap text-[2.2rem] md:text-[3.4rem] lg:text-[4rem]">The standard for your business</span>
+                        <span className="text-white/60 whitespace-normal sm:whitespace-nowrap text-[1.8rem] sm:text-[2.2rem] md:text-[3.4rem] lg:text-[4rem]">The standard for your business</span>
                     </h2>
                 </div>
             </div>
@@ -129,24 +129,32 @@ export default function TheRoninOne() {
                     {/* Stitched inner border */}
                     <div className="absolute inset-[14px] rounded-[2rem] border border-white/10 border-dashed pointer-events-none z-0" />
 
-                    <div className="relative z-10 p-10 md:p-16 flex flex-col gap-10">
+                    {/* Ronin Badge */}
+                    <div className="absolute top-6 right-6 sm:top-8 sm:right-8 md:top-10 md:right-10 z-20 inline-flex items-center gap-2.5 border border-white/10 rounded-full px-4 py-2 bg-white/[0.04] scale-90 sm:scale-100 origin-top-right">
+                        <span className="relative flex h-1.5 w-1.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-50" />
+                            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
+                        </span>
+                        <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/50">Ronin One</span>
+                    </div>
+
+                    <div className="relative z-10 p-6 pt-16 sm:p-10 sm:pt-20 md:p-16 flex flex-col gap-8 sm:gap-10">
 
                         {/* Headline */}
-                        <p className="font-sans text-2xl md:text-3xl text-white/85 leading-snug tracking-tight font-light">
-                            A system for building landing pages that actually convert.
+                        <p className="font-sans text-xl sm:text-2xl md:text-3xl text-white/85 leading-snug tracking-tight font-light mt-4 sm:mt-0">
+                            At some point, your page has to work.
                         </p>
 
                         {/* Separator */}
                         <div className="w-full h-px bg-white/[0.07]" />
 
                         {/* Subtext */}
-                        <div className="space-y-5">
-                            <p className="font-sans text-lg text-white/50 leading-relaxed tracking-tight">
-                                Ronin One isn't a design service.<br />
-                                It's a structured system built on clarity, conversion logic, and user behavior — designed to turn attention into revenue.
+                        <div className="space-y-4 sm:space-y-5">
+                            <p className="font-sans text-base sm:text-lg text-white/50 leading-relaxed tracking-tight">
+                                Whether you're starting from scratch or fixing what's already there, Ronin One is built to do one thing — turn attention into action.
                             </p>
-                            <p className="font-sans text-lg text-white/50 leading-relaxed tracking-tight">
-                                Every page is built using the Ronin System, combining messaging, structure, and decision-driven design into a single focused experience.
+                            <p className="font-sans text-base sm:text-lg text-white/50 leading-relaxed tracking-tight">
+                                Because without that, nothing else matters.
                             </p>
                         </div>
 
@@ -154,7 +162,7 @@ export default function TheRoninOne() {
                         <div className="w-full h-px bg-white/[0.07]" />
 
                         {/* Experience layer */}
-                        <p className="font-sans text-lg text-white/40 leading-relaxed tracking-tight italic">
+                        <p className="font-sans text-base sm:text-lg text-white/40 leading-relaxed tracking-tight italic">
                             From the first interaction to final delivery, every step is designed to be clear, focused, and frictionless — just like the pages we build.
                         </p>
 
@@ -167,7 +175,7 @@ export default function TheRoninOne() {
             ───────────────────────────────────────────── */}
             <div className="cb w-full max-w-[1120px] mx-auto px-4 pt-48 md:pt-[18rem] pb-32">
                 {/* Bridge line */}
-                <h2 className="font-display text-4xl md:text-5xl text-white font-medium tracking-tight mb-24 text-center">
+                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white font-medium tracking-tight mb-16 sm:mb-24 text-center">
                     Every Ronin page follows the same principle.
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -226,10 +234,10 @@ export default function TheRoninOne() {
             {/* ─────────────────────────────────────────────
                 MOMENT 4 — Verdict + CTA
             ───────────────────────────────────────────── */}
-            <div className="w-full flex flex-col items-center text-center px-6 pb-36 max-w-4xl mx-auto space-y-12">
+            <div className="w-full flex flex-col items-center text-center px-6 pb-24 sm:pb-36 max-w-4xl mx-auto space-y-12">
                 <div className="cb space-y-6">
-                    <h3 className="font-display text-4xl md:text-[3.5rem] text-white font-medium tracking-tighter leading-[1.05]">
-                        This is what a landing page<br /> should have always been.
+                    <h3 className="font-display text-3xl sm:text-4xl md:text-[3.5rem] text-white font-medium tracking-tighter leading-[1.05]">
+                        This is what a landing page<br className="hidden sm:block" /> should have always been.
                     </h3>
                 </div>
             </div>

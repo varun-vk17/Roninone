@@ -40,7 +40,7 @@ export default function TheFooter() {
                 className="w-full flex flex-col items-center overflow-hidden"
             >
                 {/* Top Navigation Grid (Unio Style) */}
-                <div className="w-full grid grid-cols-2 md:grid-cols-12 gap-10 mb-20 md:mb-32">
+                <div className="w-full grid grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10 mb-16 sm:mb-20 md:mb-32">
                     
                     {/* Col 1 */}
                     <div className="col-span-1 md:col-span-2 flex flex-col gap-2">
@@ -57,8 +57,8 @@ export default function TheFooter() {
                     </div>
 
                     {/* Col 3 - Call to Action */}
-                    <div className="col-span-2 md:col-span-8 flex flex-col md:items-end text-left md:text-right gap-3 pt-6 md:pt-0">
-                        <h3 className="font-display text-3xl md:text-4xl text-white font-medium tracking-tight whitespace-nowrap">
+                    <div className="col-span-2 md:col-span-8 flex flex-col md:items-end text-left md:text-right gap-3 pt-4 sm:pt-6 md:pt-0">
+                        <h3 className="font-display text-3xl md:text-4xl text-white font-medium tracking-tight whitespace-normal sm:whitespace-nowrap">
                             Ready to set a new standard?
                         </h3>
                         <button onClick={openApplyModal} className="font-sans text-[15px] text-white font-medium underline underline-offset-[6px] decoration-white/40 hover:decoration-white transition-all w-fit md:ml-auto">
@@ -68,11 +68,10 @@ export default function TheFooter() {
 
                 </div>
 
-                {/* The Massive Edge-to-Edge Wordmark */}
                 <div className="w-full flex justify-center items-center footer-mark pb-16 md:pb-32 overflow-hidden px-4">
                     <span 
                         className="font-sans font-semibold text-white tracking-tight leading-[0.85] select-none text-center whitespace-nowrap"
-                        style={{ fontSize: 'clamp(2.5rem, 8.5vw, 12rem)' }}
+                        style={{ fontSize: 'clamp(1.8rem, 8.5vw, 12rem)' }}
                     >
                         Make It Matter
                     </span>

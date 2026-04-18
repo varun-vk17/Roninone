@@ -46,20 +46,20 @@ export default function TheFounder() {
                 
                 {/* ── Section Title ── */}
                 <div className="fc mb-12 pl-2">
-                    <h2 className="font-display text-4xl md:text-5xl text-white font-medium tracking-tight">
+                    <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white font-medium tracking-tight">
                         Who builds this?
                     </h2>
                 </div>
 
                 {/* ── The Ronin Profile Card (HUD Style) ── */}
-                <div className="fc relative w-full bg-[#020202]/90 backdrop-blur-md rounded-[2.5rem] p-8 md:p-14 mb-16 flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16 border border-white/20 shadow-[inset_0_0_50px_rgba(0,0,0,1),0_20px_60px_rgba(0,0,0,0.8)]">
+                <div className="fc relative w-full bg-[#020202]/90 backdrop-blur-md rounded-[2.5rem] p-6 sm:p-8 md:p-14 mb-12 sm:mb-16 flex flex-col md:flex-row items-center md:items-start gap-8 sm:gap-10 md:gap-16 border border-white/20 shadow-[inset_0_0_50px_rgba(0,0,0,1),0_20px_60px_rgba(0,0,0,0.8)]">
                     
                     {/* Stitched inner border (HUD aesthetic) */}
                     <div className="absolute inset-[12px] md:inset-[16px] rounded-[2rem] border border-white/10 border-dashed pointer-events-none z-0" />
 
                     {/* Left: The Ronin Orb Avatar */}
                     <div className="shrink-0 relative z-10">
-                        <div className="relative w-[180px] h-[180px] md:w-[240px] md:h-[240px] rounded-full overflow-hidden bg-[#020202]/90 border border-white/20 shadow-[inset_0_0_60px_rgba(0,0,0,1),0_0_80px_rgba(0,0,0,0.6)] flex items-center justify-center">
+                        <div className="relative w-[140px] h-[140px] sm:w-[180px] sm:h-[180px] md:w-[240px] md:h-[240px] rounded-full overflow-hidden bg-[#020202]/90 border border-white/20 shadow-[inset_0_0_60px_rgba(0,0,0,1),0_0_80px_rgba(0,0,0,0.6)] flex items-center justify-center">
                             {/* The Profile Picture */}
                             <img 
                                 src={founderImg} 
@@ -78,12 +78,12 @@ export default function TheFounder() {
                         </span>
 
                         {/* Name */}
-                        <h3 className="font-display text-4xl md:text-5xl text-white font-medium tracking-tight mb-4">
+                        <h3 className="font-display text-3xl sm:text-4xl md:text-5xl text-white font-medium tracking-tight mb-3 sm:mb-4">
                             Varun Kumaran
                         </h3>
 
                         {/* Core Statement */}
-                        <p className="font-sans text-xl md:text-2xl text-white/80 leading-snug tracking-tight font-light mb-8 max-w-lg">
+                        <p className="font-sans text-lg sm:text-xl md:text-2xl text-white/80 leading-snug tracking-tight font-light mb-6 sm:mb-8 max-w-lg">
                             Turning ambitious visions into revenue-driving websites.
                         </p>
 
@@ -91,7 +91,7 @@ export default function TheFounder() {
                         <div className="w-full h-px bg-white/[0.06] mb-8" />
 
                         {/* HUD Dossier Metadata */}
-                        <div className="grid grid-cols-2 gap-x-12 gap-y-6 z-10 relative mt-2">
+                        <div className="grid grid-cols-2 gap-x-6 sm:gap-x-12 gap-y-4 sm:gap-y-6 z-10 relative mt-2">
                             <div className="flex flex-col gap-1">
                                 <span className="font-mono text-[9px] text-white/30 uppercase tracking-[0.3em]">Location</span>
                                 <span className="font-sans text-sm md:text-base text-white/90 font-medium tracking-wide">Global</span>
@@ -116,9 +116,8 @@ export default function TheFounder() {
                     </div>
                 </div>
 
-                {/* ── Lower Text Block ── */}
                 <div className="fc w-full max-w-4xl pl-2">
-                    <p className="font-sans text-lg md:text-2xl text-white/50 leading-relaxed font-light tracking-tight">
+                    <p className="font-sans text-base sm:text-lg md:text-2xl text-white/50 leading-relaxed font-light tracking-tight">
                         Varun built Ronin because most landing pages are a waste of potential. What started as strategy-focused work for ambitious brands became a conversion engine. We reject generic agency models and focus purely on performance, structure, and design that actually converts. One builder, one focus, one standard.
                     </p>
                 </div>

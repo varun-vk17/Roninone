@@ -14,6 +14,8 @@ import TheFounder from './TheFounder';
 import TheApply from './TheApply';
 import TheFooter from './TheFooter';
 import TheApplyModal, { openApplyModal } from './TheApplyModal';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 
 
 export default function App() {
@@ -41,6 +43,33 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    // Initialize Lenis for that super smooth, Framer-like scrolling
+    const lenis = new Lenis({
+      // Configure for soft smooth scroll feel
+      lerp: 0.08,
+      wheelMultiplier: 1,
+    });
+
+    // Synchronize Lenis scrolling with GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+
+    // Add Lenis's requestAnimationFrame (raf) to GSAP's ticker
+    // This perfectly syncs GSAP animations with the smooth scroll
+    const updateLenis = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+    gsap.ticker.add(updateLenis);
+
+    // Disable GSAP lag smoothing to avoid visual stuttering with Lenis
+    gsap.ticker.lagSmoothing(0);
+
+    return () => {
+      gsap.ticker.remove(updateLenis);
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <div className="bg-grain min-h-screen bg-[#030303] text-white selection:bg-white selection:text-black font-sans relative block w-full">
       <AnimatePresence>
@@ -53,7 +82,7 @@ export default function App() {
             {/* RONIN — fully invisible until revealed left-to-right via progress */}
             <div className="relative mb-8 select-none">
               {/* Spacer to hold layout — invisible placeholder */}
-              <span className="font-display text-[5rem] md:text-[9rem] font-medium tracking-[0.08em] whitespace-nowrap invisible">
+              <span className="font-display text-[4rem] sm:text-[5rem] md:text-[9rem] font-medium tracking-[0.08em] whitespace-nowrap invisible">
                 RONIN
               </span>
               {/* Bright reveal — clipped left-to-right via progress */}
@@ -61,7 +90,7 @@ export default function App() {
                 className="absolute inset-0 overflow-hidden"
                 style={{ width: `${progress}%` }}
               >
-                <span className="font-display text-[5rem] md:text-[9rem] font-medium tracking-[0.08em] text-white whitespace-nowrap">
+                <span className="font-display text-[4rem] sm:text-[5rem] md:text-[9rem] font-medium tracking-[0.08em] text-white whitespace-nowrap">
                   RONIN
                 </span>
               </div>
@@ -107,8 +136,8 @@ export default function App() {
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex w-[95%] max-w-5xl items-center justify-between rounded-full border border-white/10 bg-white/5 px-2 py-2 backdrop-blur-md shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]"
             >
-              <div className="flex items-center pl-6 pr-4 z-10">
-                <span className="text-sm font-bold tracking-[0.25em] uppercase text-white">Ronin</span>
+              <div className="flex items-center pl-4 sm:pl-6 pr-2 sm:pr-4 z-10">
+                <span className="text-xs sm:text-sm font-bold tracking-[0.25em] uppercase text-white">Ronin</span>
               </div>
 
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden sm:flex items-center justify-center pointer-events-none">
@@ -118,7 +147,7 @@ export default function App() {
               </div>
 
               <div className="flex items-center pr-2 z-10">
-                <button onClick={openApplyModal} className="rounded-full bg-white px-6 py-3 text-xs font-bold text-black transition-transform hover:scale-105">
+                <button onClick={openApplyModal} className="rounded-full bg-white px-4 py-2 sm:px-6 sm:py-3 text-[10px] sm:text-xs font-bold text-black transition-transform hover:scale-105">
                   Apply for R1
                 </button>
               </div>
@@ -130,7 +159,7 @@ export default function App() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-4xl font-display text-[2.7rem] font-medium leading-[1.0] tracking-tighter md:text-[4rem] lg:text-[5rem] text-neutral-100"
+                className="max-w-4xl font-display text-5xl sm:text-[2.7rem] font-medium leading-[1.0] tracking-tighter md:text-[4rem] lg:text-[5rem] text-neutral-100"
               >
                 One page.
                 Done right.<br></br>
@@ -141,7 +170,7 @@ export default function App() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-6 max-w-2xl text-lg text-neutral-400 md:text-xl font-sans"
+                className="mt-6 max-w-2xl text-base sm:text-lg text-neutral-400 md:text-xl font-sans"
               >
                 Because when your page works the way
                 it should — every visitor becomes
