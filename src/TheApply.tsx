@@ -42,6 +42,7 @@ export default function TheApply() {
 
     return (
         <section
+            id="apply"
             ref={sectionRef}
             className="relative w-full bg-transparent flex flex-col items-center overflow-hidden"
         >
@@ -107,10 +108,13 @@ export default function TheApply() {
                             <div className="relative z-10 space-y-4 sm:space-y-5">
                                 <span className="font-mono text-[9px] text-white/40 tracking-[0.3em] uppercase block">Ronin One</span>
                                 <p className="font-display text-xl sm:text-2xl md:text-3xl text-white font-medium tracking-tight leading-tight">
-                                    We work with businesses ready to stop waiting and start performing.
+                                    We work with businesses ready to stop guessing
+                                    and start converting.
                                 </p>
                                 <p className="font-sans text-sm text-white/40 leading-relaxed tracking-tight">
-                                    No retainers. No agencies.<br className="hidden md:block" />One page. Done right.
+                                    No more confusion.<br />
+                                    No more weak positioning.<br />
+                                    No more wasted traffic.
                                 </p>
                             </div>
 
@@ -126,7 +130,7 @@ export default function TheApply() {
                                 </div>
                                 {/* CTA */}
                                 <button onClick={openApplyModal} className="group flex items-center gap-2 sm:gap-3 bg-white text-black font-display font-semibold text-sm md:text-base px-6 py-3 sm:px-8 sm:py-4 rounded-full hover:bg-white/90 transition-all duration-300 shadow-[0_0_50px_rgba(255,255,255,0.18)] hover:shadow-[0_0_80px_rgba(255,255,255,0.3)] self-start">
-                                    Apply for Ronin One
+                                    Get clarity audit
                                     <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
                                 </button>
                             </div>

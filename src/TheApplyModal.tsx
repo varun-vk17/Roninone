@@ -5,66 +5,34 @@ import React, { useState, useEffect } from 'react';
 export const openApplyModal = () => window.dispatchEvent(new Event('open-apply-modal'));
 
 // ─── Types ──────────────────────────────────────────────────
-type Path = 'has-page' | 'no-page' | null;
-type Step =
-  | 'intro'
-  | 'branch'
-  | 'url'
-  | 'what-you-build'
-  | 'goal'
-  | 'friction'
-  | 'who-for'
-  | 'system'
-  | 'submit'
-  | 'done';
+type Step = 'intro' | 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'q6' | 'q7' | 'contact' | 'done';
 
 interface FormState {
-  path: Path;
-  url: string;
-  whatBuilding: string;
+  whatYouDo: string;
+  whoFor: string;
+  landingSource: string;
   goal: string;
   friction: string;
-  whoFor: string;
+  revenue: string;
+  url: string;
   name: string;
   email: string;
 }
 
-// ─── Input / Option Styles ───────────────────────────────────
+// ─── Styles ──────────────────────────────────────────────────
 const inputCls =
-  'w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 sm:px-5 sm:py-4 font-sans text-white text-sm outline-none transition-all duration-300 focus:bg-white/[0.05] focus:border-cyan-400/60 focus:shadow-[0_0_20px_rgba(34,211,238,0.1)] placeholder:text-white/25';
+  'w-full bg-white/[0.04] border border-white/10 rounded-xl px-5 py-4 font-sans text-white text-sm outline-none transition-all duration-300 focus:bg-white/[0.07] focus:border-cyan-400/50 focus:shadow-[0_0_24px_rgba(34,211,238,0.08)] placeholder:text-white/20';
 
-function OptionBtn({
-  selected,
-  onClick,
-  children,
-}: {
-  selected: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`w-full text-left px-4 py-3 sm:px-5 sm:py-4 rounded-xl border text-sm font-sans transition-all duration-300 ${
-        selected
-          ? 'border-cyan-400/60 bg-cyan-400/5 text-white shadow-[0_0_16px_rgba(34,211,238,0.1)]'
-          : 'border-white/10 bg-white/[0.02] text-white/60 hover:border-white/20 hover:text-white/80'
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
+const STEPS: Step[] = ['intro', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'contact', 'done'];
 
-// ─── Screen wrapper with slide animation ────────────────────
-function Screen({ children }: { children: React.ReactNode }) {
+// ─── Sub-components ──────────────────────────────────────────
+function Screen({ children, dir = 1 }: { children: React.ReactNode; dir?: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -14 }}
-      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, x: dir * 24 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: dir * -24 }}
+      transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col gap-7"
     >
       {children}
@@ -72,69 +40,74 @@ function Screen({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Eyebrow({ text }: { text: string }) {
+function QLabel({ step, total, children }: { step: number; total: number; children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-3">
-      <div className="h-px w-5 bg-white/30" />
-      <span className="font-mono text-[10px] text-white/40 tracking-[0.35em] uppercase">{text}</span>
+    <div className="space-y-1">
+      <span className="font-mono text-[9px] text-white/25 tracking-[0.3em] uppercase">
+        {step} / {total}
+      </span>
+      <h3 className="font-display text-xl sm:text-2xl text-white font-medium tracking-tight leading-snug">
+        {children}
+      </h3>
     </div>
   );
 }
 
-function Headline({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="font-display text-2xl sm:text-3xl md:text-4xl text-white font-medium tracking-tight leading-snug">
-      {children}
-    </h2>
-  );
-}
-
-function Sub({ children }: { children: React.ReactNode }) {
-  return <p className="font-sans text-sm text-white/45 leading-relaxed tracking-tight">{children}</p>;
-}
-
-function Micro({ children }: { children: React.ReactNode }) {
-  return <p className="font-mono text-[10px] text-white/25 tracking-[0.25em] uppercase">{children}</p>;
-}
-
-function PrimaryBtn({
-  onClick,
-  disabled,
-  type = 'button',
-  children,
-}: {
-  onClick?: () => void;
-  disabled?: boolean;
-  type?: 'button' | 'submit';
-  children: React.ReactNode;
-}) {
+function NextBtn({ onClick, disabled, label = 'Next →' }: { onClick: () => void; disabled?: boolean; label?: string }) {
   return (
     <motion.button
-      type={type}
+      type="button"
       onClick={onClick}
       disabled={disabled}
       whileHover={{ scale: disabled ? 1 : 1.02 }}
-      whileTap={{ scale: disabled ? 1 : 0.98 }}
-      className="w-full rounded-xl bg-white px-6 py-3 sm:px-8 sm:py-4 font-display font-semibold text-black text-sm shadow-[0_0_30px_rgba(255,255,255,0.08)] hover:shadow-[0_0_40px_rgba(255,255,255,0.16)] transition-all duration-300 disabled:opacity-40"
+      whileTap={{ scale: disabled ? 1 : 0.97 }}
+      className="w-full rounded-xl bg-white px-6 py-4 font-display font-semibold text-black text-sm tracking-tight shadow-[0_0_30px_rgba(255,255,255,0.07)] hover:shadow-[0_0_40px_rgba(255,255,255,0.14)] transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
     >
-      {children}
+      {label}
     </motion.button>
   );
 }
 
-// ─── Main Component ─────────────────────────────────────────
+function OptionPill({
+  selected,
+  onClick,
+  children,
+}: {
+  selected: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+  key?: React.Key;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`w-full text-left px-5 py-3.5 rounded-xl border text-sm font-sans transition-all duration-250 ${
+        selected
+          ? 'border-cyan-400/50 bg-cyan-400/[0.06] text-white shadow-[0_0_18px_rgba(34,211,238,0.08)]'
+          : 'border-white/8 bg-white/[0.02] text-white/50 hover:border-white/15 hover:text-white/75 hover:bg-white/[0.04]'
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+// ─── Main Component ──────────────────────────────────────────
 export default function TheApplyModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<Step>('intro');
+  const [dir, setDir] = useState(1);
   const [sending, setSending] = useState(false);
 
   const [form, setForm] = useState<FormState>({
-    path: null,
-    url: '',
-    whatBuilding: '',
+    whatYouDo: '',
+    whoFor: '',
+    landingSource: '',
     goal: '',
     friction: '',
-    whoFor: '',
+    revenue: '',
+    url: '',
     name: '',
     email: '',
   });
@@ -142,11 +115,21 @@ export default function TheApplyModal() {
   const set = (key: keyof FormState, val: string) =>
     setForm((f) => ({ ...f, [key]: val }));
 
+  const goTo = (next: Step) => {
+    const cur = STEPS.indexOf(step);
+    const nxt = STEPS.indexOf(next);
+    setDir(nxt > cur ? 1 : -1);
+    setStep(next);
+  };
+
+  const next = (s: Step) => goTo(s);
+
   useEffect(() => {
     const handle = () => {
       setIsOpen(true);
       setStep('intro');
-      setForm({ path: null, url: '', whatBuilding: '', goal: '', friction: '', whoFor: '', name: '', email: '' });
+      setDir(1);
+      setForm({ whatYouDo: '', whoFor: '', landingSource: '', goal: '', friction: '', revenue: '', url: '', name: '', email: '' });
     };
     window.addEventListener('open-apply-modal', handle);
     return () => window.removeEventListener('open-apply-modal', handle);
@@ -159,8 +142,7 @@ export default function TheApplyModal() {
 
   const close = () => setIsOpen(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setSending(true);
     try {
       await fetch('https://formspree.io/f/YOUR_ENDPOINT_HERE', {
@@ -170,266 +152,309 @@ export default function TheApplyModal() {
       });
     } catch (_) {}
     setSending(false);
-    setStep('done');
+    next('done');
   };
 
-  const goals = ['Get signups', 'Book calls', 'Sell product', 'Other'];
+  // Progress: exclude intro + done from bar
+  const formSteps: Step[] = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'contact'];
+  const formStepIdx = formSteps.indexOf(step);
+  const showProgress = formStepIdx >= 0;
+  const progressPct = showProgress
+    ? Math.round(((formStepIdx + 1) / formSteps.length) * 100)
+    : step === 'done' ? 100 : 0;
 
-  const stepContent: Record<Step, React.ReactNode> = {
+  const screens: Record<Step, React.ReactNode> = {
 
-    // ── Screen 1: Intro ──────────────────────────────────────
+    // ── STEP 1: LANDING ────────────────────────────────────────
     intro: (
-      <Screen>
-        <Eyebrow text="Ronin One" />
-        <div className="space-y-3">
-          <Headline>Let's look at your page.</Headline>
-          <Sub>Before anything is built, we understand how your page works — or how it should.</Sub>
+      <Screen dir={dir}>
+        <div className="space-y-5 py-4">
+          <div className="space-y-1">
+            <span className="font-mono text-[9px] text-white/25 tracking-[0.35em] uppercase">Get clarity audit</span>
+          </div>
+          <h2 className="font-display text-[1.65rem] sm:text-3xl text-white font-medium tracking-tight leading-[1.2]">
+            Let's find what's blocking your conversions.
+          </h2>
+          <p className="font-sans text-sm text-white/40 leading-relaxed">
+            Answer a few quick questions.<br />
+            You'll get a clear breakdown of what's not working.
+          </p>
         </div>
-        <Micro>Takes less than a minute</Micro>
-        <PrimaryBtn onClick={() => setStep('branch')}>Continue →</PrimaryBtn>
+        <NextBtn onClick={() => next('q1')} label="Start audit →" />
       </Screen>
     ),
 
-    // ── Screen 2: Branch ─────────────────────────────────────
-    branch: (
-      <Screen>
-        <Eyebrow text="Step 01" />
-        <Headline>Do you already have a landing page?</Headline>
-        <div className="flex flex-col gap-3">
-          <OptionBtn selected={form.path === 'has-page'} onClick={() => set('path', 'has-page')}>Yes, I have one</OptionBtn>
-          <OptionBtn selected={form.path === 'no-page'} onClick={() => set('path', 'no-page')}>Not yet</OptionBtn>
-        </div>
-        <PrimaryBtn
-          disabled={!form.path}
-          onClick={() => setStep(form.path === 'has-page' ? 'url' : 'what-you-build')}
-        >
-          Continue →
-        </PrimaryBtn>
-      </Screen>
-    ),
-
-    // ── Screen 3A: URL ───────────────────────────────────────
-    url: (
-      <Screen>
-        <Eyebrow text="Step 02" />
-        <div className="space-y-2">
-          <Headline>Share your page.</Headline>
-          <Sub>We'll review this through the Ronin System.</Sub>
-        </div>
+    // ── STEP 2: FORM (one question per screen) ─────────────────
+    q1: (
+      <Screen dir={dir}>
+        <QLabel step={1} total={7}>What do you do?</QLabel>
         <input
+          autoFocus
           className={inputCls}
-          type="url"
-          placeholder="https://yourpage.com"
-          value={form.url}
-          onChange={e => set('url', e.target.value)}
+          placeholder="e.g. I run a coaching business..."
+          value={form.whatYouDo}
+          onChange={e => set('whatYouDo', e.target.value)}
         />
-        <PrimaryBtn onClick={() => setStep('goal')} disabled={!form.url.trim()}>Continue →</PrimaryBtn>
+        <NextBtn onClick={() => next('q2')} disabled={!form.whatYouDo.trim()} />
       </Screen>
     ),
 
-    // ── Screen 3B: What you build ────────────────────────────
-    'what-you-build': (
-      <Screen>
-        <Eyebrow text="Step 02" />
-        <Headline>What are you building?</Headline>
+    q2: (
+      <Screen dir={dir}>
+        <QLabel step={2} total={7}>Who do you sell to?</QLabel>
         <input
+          autoFocus
           className={inputCls}
-          type="text"
-          placeholder="Describe your offer briefly"
-          value={form.whatBuilding}
-          onChange={e => set('whatBuilding', e.target.value)}
+          placeholder="e.g. Agency owners, ecommerce brands..."
+          value={form.whoFor}
+          onChange={e => set('whoFor', e.target.value)}
         />
-        <PrimaryBtn onClick={() => setStep('goal')} disabled={!form.whatBuilding.trim()}>Continue →</PrimaryBtn>
+        <NextBtn onClick={() => next('q3')} disabled={!form.whoFor.trim()} />
       </Screen>
     ),
 
-    // ── Screen 4: Goal (shared) ──────────────────────────────
-    goal: (
-      <Screen>
-        <Eyebrow text="Step 03" />
-        <Headline>What should this page achieve?</Headline>
-        <div className="flex flex-col gap-3">
-          {goals.map(g => (
-            <OptionBtn key={g} selected={form.goal === g} onClick={() => set('goal', g)}>{g}</OptionBtn>
+    q3: (
+      <Screen dir={dir}>
+        <QLabel step={3} total={7}>Where do people land first?</QLabel>
+        <div className="flex flex-col gap-2.5">
+          {(['Website', 'Landing page', 'Instagram', 'Other'] as const).map(opt => (
+            <OptionPill
+              key={opt}
+              selected={form.landingSource === opt}
+              onClick={() => set('landingSource', opt)}
+            >
+              {opt}
+            </OptionPill>
           ))}
         </div>
-        <PrimaryBtn
-          disabled={!form.goal}
-          onClick={() => setStep(form.path === 'has-page' ? 'friction' : 'who-for')}
-        >
-          Continue →
-        </PrimaryBtn>
+        <NextBtn onClick={() => next('q4')} disabled={!form.landingSource} />
       </Screen>
     ),
 
-    // ── Screen 5A: Where it's not working ───────────────────
-    friction: (
-      <Screen>
-        <Eyebrow text="Step 04" />
-        <div className="space-y-2">
-          <Headline>Where do you think it's not working?</Headline>
-          <Sub>Optional — but it helps us focus our review.</Sub>
+    q4: (
+      <Screen dir={dir}>
+        <QLabel step={4} total={7}>What's your main goal?</QLabel>
+        <div className="flex flex-col gap-2.5">
+          {(['Leads', 'Sales', 'Calls', 'Signups'] as const).map(opt => (
+            <OptionPill
+              key={opt}
+              selected={form.goal === opt}
+              onClick={() => set('goal', opt)}
+            >
+              {opt}
+            </OptionPill>
+          ))}
         </div>
+        <NextBtn onClick={() => next('q5')} disabled={!form.goal} />
+      </Screen>
+    ),
+
+    q5: (
+      <Screen dir={dir}>
+        <QLabel step={5} total={7}>What's not working right now?</QLabel>
         <textarea
+          autoFocus
           className={`${inputCls} resize-none`}
           rows={4}
           placeholder="People land but don't take action. The page feels unclear..."
           value={form.friction}
           onChange={e => set('friction', e.target.value)}
         />
-        <PrimaryBtn onClick={() => setStep('system')}>Continue →</PrimaryBtn>
+        <NextBtn onClick={() => next('q6')} disabled={!form.friction.trim()} />
       </Screen>
     ),
 
-    // ── Screen 5B: Who is this for ───────────────────────────
-    'who-for': (
-      <Screen>
-        <Eyebrow text="Step 04" />
-        <div className="space-y-2">
-          <Headline>Who is this for?</Headline>
-          <Sub>Optional — helps us understand your audience.</Sub>
+    q6: (
+      <Screen dir={dir}>
+        <QLabel step={6} total={7}>Monthly revenue range</QLabel>
+        <div className="flex flex-col gap-2.5">
+          {(['$0 – $5k', '$5k – $15k', '$15k – $30k', '$30k+'] as const).map(opt => (
+            <OptionPill
+              key={opt}
+              selected={form.revenue === opt}
+              onClick={() => set('revenue', opt)}
+            >
+              {opt}
+            </OptionPill>
+          ))}
         </div>
+        <NextBtn onClick={() => next('q7')} disabled={!form.revenue} />
+      </Screen>
+    ),
+
+    q7: (
+      <Screen dir={dir}>
+        <QLabel step={7} total={7}>Link to your current page</QLabel>
         <input
+          autoFocus
+          type="url"
           className={inputCls}
-          type="text"
-          placeholder="e.g. Founders, coaches, SaaS teams..."
-          value={form.whoFor}
-          onChange={e => set('whoFor', e.target.value)}
+          placeholder="https://yourpage.com"
+          value={form.url}
+          onChange={e => set('url', e.target.value)}
         />
-        <PrimaryBtn onClick={() => setStep('system')}>Continue →</PrimaryBtn>
+        <NextBtn onClick={() => next('contact')} disabled={!form.url.trim()} />
       </Screen>
     ),
 
-    // ── Screen 6: System reinforcement ──────────────────────
-    system: (
-      <Screen>
-        <Eyebrow text="What happens next" />
-        <Headline>Here's what happens next.</Headline>
-        <div className="space-y-5">
-          <Sub>Every page is reviewed and built using the Ronin System:</Sub>
-          <div className="flex flex-col gap-3 pl-1">
-            {['Clarity — does the page communicate instantly?', 'Structure — does it guide the visitor forward?', 'Conversion — does every element earn its place?'].map((item, i) => (
-              <div key={i} className="flex items-start gap-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-cyan-400/60 mt-2 shrink-0" />
-                <p className="font-sans text-sm text-white/55 leading-relaxed">{item}</p>
-              </div>
-            ))}
-          </div>
-          <Sub>No guesswork. No templates. Just what works.</Sub>
+    // ── CONTACT: where to send the breakdown ──────────────────
+    contact: (
+      <Screen dir={dir}>
+        <div className="space-y-1">
+          <span className="font-mono text-[9px] text-white/25 tracking-[0.3em] uppercase">Last step</span>
+          <h3 className="font-display text-xl sm:text-2xl text-white font-medium tracking-tight leading-snug">
+            Where should we send the breakdown?
+          </h3>
         </div>
-        <PrimaryBtn onClick={() => setStep('submit')}>Continue →</PrimaryBtn>
+        <div className="flex flex-col gap-3">
+          <input
+            autoFocus
+            type="text"
+            className={inputCls}
+            placeholder="Your name"
+            value={form.name}
+            onChange={e => set('name', e.target.value)}
+          />
+          <input
+            type="email"
+            className={inputCls}
+            placeholder="Email address"
+            value={form.email}
+            onChange={e => set('email', e.target.value)}
+          />
+        </div>
+        <NextBtn
+          onClick={handleSubmit}
+          disabled={sending || !form.name.trim() || !form.email.trim()}
+          label={sending ? 'Submitting...' : 'Submit audit →'}
+        />
       </Screen>
     ),
 
-    // ── Screen 7: Submit ─────────────────────────────────────
-    submit: (
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        <AnimatePresence mode="wait">
-          <Screen key="submit-screen">
-            <Eyebrow text="Final step" />
-            <Headline>Submit for review.</Headline>
-            <div className="flex flex-col gap-3">
-              <input
-                className={inputCls}
-                type="text"
-                placeholder="Your name"
-                required
-                value={form.name}
-                onChange={e => set('name', e.target.value)}
-              />
-              <input
-                className={inputCls}
-                type="email"
-                placeholder="Email address"
-                required
-                value={form.email}
-                onChange={e => set('email', e.target.value)}
-              />
-            </div>
-            <PrimaryBtn type="submit" disabled={sending || !form.name.trim() || !form.email.trim()}>
-              {sending ? 'Submitting...' : 'Submit →'}
-            </PrimaryBtn>
-          </Screen>
-        </AnimatePresence>
-      </form>
-    ),
-
-    // ── Screen 8: Confirmation ───────────────────────────────
+    // ── STEP 3: TRANSITION SCREEN ─────────────────────────────
     done: (
-      <Screen>
-        <Eyebrow text="Received" />
-        <div className="space-y-4">
-          <Headline>We're reviewing your page.</Headline>
-          <Sub>You'll hear back with what we see — and how we'd improve it.</Sub>
-          <p className="font-sans text-sm text-white/30 leading-relaxed italic">
-            If it makes sense, we'll show you the direction we'd take.
-          </p>
+      <Screen dir={dir}>
+        <div className="space-y-5 py-2">
+          <div className="w-8 h-8 rounded-full bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="rgb(34,211,238)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <div className="space-y-3">
+            <h2 className="font-display text-2xl sm:text-3xl text-white font-medium tracking-tight leading-snug">
+              Got it. Here's what happens next.
+            </h2>
+            <p className="font-sans text-sm text-white/45 leading-relaxed">
+              We'll review your business and identify what's blocking clarity, trust, and conversion.
+            </p>
+            <p className="font-sans text-sm text-white/30 leading-relaxed">
+              If there's a real opportunity to fix it, we'll send you a breakdown + next steps.
+            </p>
+          </div>
         </div>
-        {/* Separator */}
-        <div className="w-full h-px bg-white/[0.07]" />
-        <button onClick={close} className="font-mono text-[10px] text-white/30 tracking-[0.3em] uppercase hover:text-white/50 transition-colors text-left">
-          Close
-        </button>
+
+        {/* STEP 4: POWER MOVE — WhatsApp redirect */}
+        <div className="space-y-3">
+          <motion.button
+            type="button"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() =>
+              window.open(
+                'https://wa.me/918610871405?text=Just%20submitted%20the%20audit.%20Looking%20forward%20to%20your%20breakdown.',
+                '_blank'
+              )
+            }
+            className="w-full rounded-xl bg-[#25D366] px-6 py-4 font-display font-semibold text-white text-sm tracking-tight shadow-[0_0_30px_rgba(37,211,102,0.15)] hover:shadow-[0_0_40px_rgba(37,211,102,0.25)] transition-all duration-300 flex items-center justify-center gap-2.5"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Message us on WhatsApp ↗
+          </motion.button>
+
+          <button
+            type="button"
+            onClick={close}
+            className="w-full font-mono text-[9px] text-white/20 tracking-[0.35em] uppercase hover:text-white/40 transition-colors py-1"
+          >
+            Close
+          </button>
+        </div>
       </Screen>
     ),
   };
 
-  // ── Progress indicator ────────────────────────────────────
-  const ORDER: Step[] = ['intro', 'branch', 'url', 'what-you-build', 'goal', 'friction', 'who-for', 'system', 'submit', 'done'];
-  const progressPct = Math.round(((ORDER.indexOf(step) + 1) / ORDER.length) * 100);
-
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-auto">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-auto px-4">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-0 bg-black/85 backdrop-blur-2xl"
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0 bg-black/80 backdrop-blur-2xl"
             onClick={close}
           />
 
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, y: 36, scale: 0.97 }}
+            initial={{ opacity: 0, y: 32, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.97 }}
-            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-lg mx-4 bg-[#020202]/95 border border-white/10 rounded-[2rem] shadow-[0_0_80px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)] overflow-hidden"
+            exit={{ opacity: 0, y: 16, scale: 0.97 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full max-w-md flex flex-col bg-[#030303] border border-white/[0.08] rounded-[2rem] shadow-[0_0_100px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.05)] overflow-hidden"
           >
-            {/* Inner dashed border */}
-            <div className="absolute inset-[10px] rounded-[1.6rem] border border-white/5 border-dashed pointer-events-none z-0" />
+            {/* Dashed inner border */}
+            <div className="absolute inset-[10px] rounded-[1.55rem] border border-white/[0.04] border-dashed pointer-events-none z-0" />
 
-            {/* Progress bar — top edge */}
-            <div className="absolute top-0 left-0 w-full h-px bg-white/5">
-              <div
-                className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-[#5443d3] transition-all duration-500"
-                style={{ width: `${progressPct}%` }}
+            {/* Progress bar */}
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-white/[0.04] z-10">
+              <motion.div
+                className="h-full bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500"
+                animate={{ width: `${progressPct}%` }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               />
             </div>
 
-            {/* Header row */}
-            <div className="relative z-10 flex items-center justify-between px-5 sm:px-8 pt-6 sm:pt-8 pb-2">
-              <span className="font-mono text-[9px] text-white/25 tracking-[0.35em] uppercase">Ronin One</span>
+            {/* Fixed header */}
+            <div className="relative z-10 flex items-center justify-between px-7 pt-7 pb-4 flex-shrink-0">
+              <div className="flex items-center gap-2.5">
+                {step !== 'intro' && step !== 'done' && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const idx = STEPS.indexOf(step);
+                      if (idx > 0) goTo(STEPS[idx - 1] as Step);
+                    }}
+                    className="text-white/25 hover:text-white/55 transition-colors mr-1"
+                    aria-label="Back"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M19 12H5M5 12l7 7M5 12l7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                )}
+                <span className="font-mono text-[9px] text-white/20 tracking-[0.35em] uppercase">Ronin One</span>
+              </div>
               <button
                 onClick={close}
-                className="text-white/25 hover:text-white/60 transition-colors duration-300"
+                className="text-white/20 hover:text-white/50 transition-colors"
                 aria-label="Close"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
             </div>
 
             {/* Content */}
-            <div className="relative z-10 px-5 sm:px-8 pb-8 sm:pb-10 pt-5 sm:pt-6">
-              <AnimatePresence mode="wait">
+            <div className="relative z-10 px-7 pb-8 pt-2 overflow-hidden">
+              <AnimatePresence mode="wait" custom={dir}>
                 <div key={step}>
-                  {stepContent[step]}
+                  {screens[step]}
                 </div>
               </AnimatePresence>
             </div>

@@ -149,7 +149,7 @@ export default function App() {
 
               <div className="flex items-center pr-2 z-10">
                 <button onClick={openApplyModal} className="rounded-full bg-white px-4 py-2 sm:px-6 sm:py-3 text-[10px] sm:text-xs font-bold text-black transition-transform hover:scale-105">
-                  Apply for R1
+                  Get clarity audit
                 </button>
               </div>
             </motion.nav>
@@ -160,11 +160,9 @@ export default function App() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-4xl font-display text-5xl sm:text-[2.7rem] font-medium leading-[1.0] tracking-tighter md:text-[4rem] lg:text-[5rem] text-neutral-100"
+                className="w-full max-w-6xl font-display text-4xl sm:text-[2.7rem] font-medium leading-[1.05] tracking-tighter md:text-[4rem] lg:text-[4.8rem] text-neutral-100"
               >
-                One page.
-                Done right.<br></br>
-                Changes everything.
+                We turn unclear businesses into brands people trust and buy from.
               </motion.h1>
 
               <motion.p
@@ -173,9 +171,7 @@ export default function App() {
                 transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-6 max-w-2xl text-base sm:text-lg text-neutral-400 md:text-xl font-sans"
               >
-                Because when your page works the way
-                it should — every visitor becomes
-                an opportunity you don't have to chase.
+                By fixing your clarity, positioning, and conversion—so people understand you and take action.
               </motion.p>
 
               <motion.div
@@ -184,14 +180,14 @@ export default function App() {
                 transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-12"
               >
-                <motion.button 
-                   onClick={openApplyModal}
-                   whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.12)", borderColor: "rgba(255,255,255,0.4)" }}
-                   whileTap={{ scale: 0.95 }}
-                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                   className="group relative overflow-hidden rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-8 py-4 text-xs font-medium text-white transition-shadow duration-300 hover:shadow-[0_0_40px_0_rgba(0,255,204,0.3)] shadow-xl"
+                <motion.button
+                  onClick={openApplyModal}
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.12)", borderColor: "rgba(255,255,255,0.4)" }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                  className="group relative overflow-hidden rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-8 py-4 text-xs font-medium text-white transition-shadow duration-300 hover:shadow-[0_0_40px_0_rgba(0,255,204,0.3)] shadow-xl"
                 >
-                  <span className="relative z-10">Apply for R1</span>
+                  <span className="relative z-10">Get clarity audit</span>
                 </motion.button>
               </motion.div>
             </main>

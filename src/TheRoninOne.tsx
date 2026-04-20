@@ -34,8 +34,8 @@ export default function TheRoninOne() {
     const cardsData = [
         {
             num: '01',
-            title: 'It starts with understanding',
-            description: "If they don’t understand instantly, they don’t stay — and nothing converts.",
+            title: 'It starts with clarity',
+            description: "If people don’t understand your business instantly,they don’t stay — and nothing converts.",
             blobs: (
                 <>
                     <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 via-blue-600 to-[#5443d3] opacity-50" />
@@ -52,7 +52,7 @@ export default function TheRoninOne() {
         {
             num: '02',
             title: 'Then it creates direction',
-            description: "A landing page leads visitors — step by step — toward one decision.",
+            description: "Your business guides people — step by step —toward one clear decision.",
             blobs: (
                 <>
                     <div className="absolute inset-0 bg-gradient-to-t from-cyan-500 via-blue-600 to-[#5443d3] opacity-50" />
@@ -69,7 +69,7 @@ export default function TheRoninOne() {
         {
             num: '03',
             title: 'Revenue is the Result',
-            description: "Every element must justify its place, or it quietly costs you revenue.",
+            description: "Every element must earn its place —or it quietly costs you revenue.",
             blobs: (
                 <>
                     <div className="absolute inset-0 bg-gradient-to-bl from-cyan-500 via-blue-600 to-[#5443d3] opacity-50" />
@@ -87,6 +87,7 @@ export default function TheRoninOne() {
 
     return (
         <section
+            id="ronin-one"
             ref={sectionRef}
             className="relative w-full bg-transparent flex flex-col items-center overflow-hidden"
         >
@@ -103,8 +104,7 @@ export default function TheRoninOne() {
                 {/* Context */}
                 <div className="cb space-y-4 mb-16">
                     <p className="font-sans text-base md:text-lg text-white/40 tracking-tight leading-relaxed max-w-xl">
-                        For twenty years, a landing page<br />
-                        meant a brief, a design, and a hope.
+                        For years, businesses relied on design, guesswork, and hope.
                     </p>
                     <p className="font-sans text-base md:text-lg text-white/40 tracking-tight leading-relaxed max-w-xl">
                         Most still do.
@@ -142,7 +142,7 @@ export default function TheRoninOne() {
 
                         {/* Headline */}
                         <p className="font-sans text-xl sm:text-2xl md:text-3xl text-white/85 leading-snug tracking-tight font-light mt-4 sm:mt-0">
-                            At some point, your page has to work.
+                            At some point, your business has to make sense.
                         </p>
 
                         {/* Separator */}
@@ -151,10 +151,12 @@ export default function TheRoninOne() {
                         {/* Subtext */}
                         <div className="space-y-4 sm:space-y-5">
                             <p className="font-sans text-base sm:text-lg text-white/50 leading-relaxed tracking-tight">
-                                Whether you're starting from scratch or fixing what's already there, Ronin One is built to do one thing — turn attention into action.
+                                Whether you're starting from scratch or fixing what’s already there,
+                                Ronin is built to do one thing —
+                                turn understanding into action.
                             </p>
                             <p className="font-sans text-base sm:text-lg text-white/50 leading-relaxed tracking-tight">
-                                Because without that, nothing else matters.
+                                Because without clarity, nothing else matters.
                             </p>
                         </div>
 
@@ -163,7 +165,8 @@ export default function TheRoninOne() {
 
                         {/* Experience layer */}
                         <p className="font-sans text-base sm:text-lg text-white/40 leading-relaxed tracking-tight italic">
-                            From the first interaction to final delivery, every step is designed to be clear, focused, and frictionless — just like the pages we build.
+                            From first impression to final decision,
+                            every step is designed to be clear, focused, and frictionless.
                         </p>
 
                     </div>
@@ -176,7 +179,7 @@ export default function TheRoninOne() {
             <div className="cb w-full max-w-[1120px] mx-auto px-4 pt-48 md:pt-[18rem] pb-32">
                 {/* Bridge line */}
                 <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white font-medium tracking-tight mb-16 sm:mb-24 text-center">
-                    Every Ronin page follows the same principle.
+                    Every Ronin system follows the same principle.
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {cardsData.map((card) => (
@@ -237,7 +240,7 @@ export default function TheRoninOne() {
             <div className="w-full flex flex-col items-center text-center px-6 pb-24 sm:pb-36 max-w-4xl mx-auto space-y-12">
                 <div className="cb space-y-6">
                     <h3 className="font-display text-3xl sm:text-4xl md:text-[3.5rem] text-white font-medium tracking-tighter leading-[1.05]">
-                        This is what a landing page<br className="hidden sm:block" /> should have always been.
+                        This is what your business <br className="hidden sm:block" /> should feel like.
                     </h3>
                 </div>
             </div>
