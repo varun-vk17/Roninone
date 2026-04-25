@@ -162,7 +162,7 @@ export default function App() {
                 transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="w-full max-w-6xl font-display text-4xl sm:text-[2.7rem] font-medium leading-[1.05] tracking-tighter md:text-[4rem] lg:text-[4.8rem] text-neutral-100"
               >
-                We turn unclear businesses into brands people trust and buy from.
+                We build businesses that people understand, trust, and buy from
               </motion.h1>
 
               <motion.p
