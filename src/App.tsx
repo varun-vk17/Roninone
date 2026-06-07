@@ -4,7 +4,8 @@
  */
 
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import Hls from 'hls.js';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
@@ -25,6 +26,36 @@ export default function App() {
 
   const { scrollY } = useScroll();
   const rotate = useTransform(scrollY, [0, 2000], [0, 720]);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let hls: Hls | null = null;
+    const src = "https://stream.mux.com/Si6ej2ZRrxRCnTYBXSScDRCdd7CGnyTqiPszZcw3z4I.m3u8";
+
+    if (Hls.isSupported()) {
+      hls = new Hls();
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        video.play().catch(() => { });
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+      video.addEventListener('loadedmetadata', () => {
+        video.play().catch(() => { });
+      });
+    }
+
+    return () => {
+      if (hls) {
+        hls.destroy();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const duration = 3000;
@@ -174,7 +205,9 @@ export default function App() {
                 transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-6 max-w-2xl text-base sm:text-lg text-neutral-400 md:text-xl font-sans"
               >
-                Ronin designs premium websites that help businesses earn trust, communicate value, and become the obvious choice.
+                Ronin builds websites so clear,
+                so sharp, so right — your business
+                becomes the one they always choose.
               </motion.p>
 
               <motion.div
@@ -185,12 +218,12 @@ export default function App() {
               >
                 <motion.button
                   onClick={openApplyModal}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.08)", borderColor: "rgba(255,255,255,0.2)" }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  className="liquid-glass group relative overflow-hidden rounded-full px-8 py-4 text-xs font-medium text-white transition-shadow duration-300 hover:shadow-[0_0_40px_0_rgba(0,255,204,0.3)] shadow-xl"
+                  className="group relative overflow-hidden rounded-full border border-white/[0.08] bg-white/[0.01] backdrop-blur-2xl px-10 py-5 text-sm font-medium text-white transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_0_20px_rgba(255,255,255,0.02),0_10px_40px_rgba(0,0,0,0.5)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_10px_40px_rgba(0,255,204,0.15)]"
                 >
-                  <span className="relative z-10">Start a Project</span>
+                  <span className="relative z-10 tracking-wide">Start a Project</span>
                 </motion.button>
               </motion.div>
             </main>
@@ -204,71 +237,17 @@ export default function App() {
                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                 className="noise-overlay relative w-full aspect-square md:aspect-[21/9] bg-[#050505] rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)]"
               >
-                {/* Vibrant Gradient Mesh (The Color) */}
-                <div className="absolute inset-0 opacity-90 transform-gpu">
-                  <motion.div
-                    animate={{
-                      x: ['-10%', '10%', '-10%'],
-                      y: ['-10%', '10%', '-10%'],
-                    }}
-                    transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ willChange: 'transform' }}
-                    className="absolute top-[-20%] left-[-10%] w-[60%] h-[80%] bg-cyan-600 rounded-full blur-[60px] opacity-60"
+                {/* Background Video */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
                   />
-                  <motion.div
-                    animate={{
-                      x: ['10%', '-10%', '10%'],
-                      y: ['10%', '-10%', '10%'],
-                    }}
-                    transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ willChange: 'transform' }}
-                    className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[90%] bg-blue-700 rounded-full blur-[70px] opacity-60"
-                  />
-                  <motion.div
-                    animate={{
-                      x: ['-5%', '5%', '-5%'],
-                      y: ['5%', '-5%', '5%'],
-                    }}
-                    transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ willChange: 'transform' }}
-                    className="absolute top-[10%] right-[20%] w-[40%] h-[60%] bg-[#5443d3] rounded-full blur-[50px] opacity-50"
-                  />
-                  {/* Grain on gradients */}
-                  <div
-                    className="absolute inset-0 pointer-events-none transform-gpu"
-                    style={{
-                      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")`,
-                      backgroundSize: '180px 180px',
-                      backgroundRepeat: 'repeat',
-                      opacity: 0.12,
-                    }}
-                  />
-                </div>
-
-                {/* The Void (The Ronin Standard - Precision cutting through noise) */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 1.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ rotate }}
-                    className="relative w-48 h-48 md:w-64 md:h-64 bg-[#020202] rounded-full border border-white/20 shadow-[inset_0_0_40px_rgba(0,0,0,1),0_0_50px_rgba(0,0,0,0.8)] flex items-center justify-center"
-                  >
-                    {/* Inner Ring */}
-                    <div className="absolute inset-4 rounded-full border border-white/5 border-dashed"></div>
-                    {/* Center Dot */}
-                    <div className="w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)]"></div>
-
-                    {/* Crosshairs to make rotation visible */}
-                    <div className="absolute inset-0 flex items-center justify-between px-4 opacity-30">
-                      <div className="w-6 h-px bg-white/40"></div>
-                      <div className="w-6 h-px bg-white/40"></div>
-                    </div>
-                    <div className="absolute inset-0 flex flex-col items-center justify-between py-4 opacity-30">
-                      <div className="w-px h-6 bg-white/40"></div>
-                      <div className="w-px h-6 bg-white/40"></div>
-                    </div>
-                  </motion.div>
+                  <div className="absolute inset-0 bg-black/20 pointer-events-none" />
                 </div>
 
                 {/* Technical Markings / UI Chrome */}
