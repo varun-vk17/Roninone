@@ -35,7 +35,7 @@ export default function App() {
     if (!video) return;
 
     let hls: Hls | null = null;
-    const src = "https://stream.mux.com/Si6ej2ZRrxRCnTYBXSScDRCdd7CGnyTqiPszZcw3z4I.m3u8";
+    const src = "https://stream.mux.com/r6pXRAJb3005XEEbl1hYU1x01RFJDSn7KQApwNGgAHHbU.m3u8";
 
     if (Hls.isSupported()) {
       hls = new Hls();
