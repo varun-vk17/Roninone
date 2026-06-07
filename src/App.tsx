@@ -4,8 +4,7 @@
  */
 
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
-import { useState, useEffect, useRef } from 'react';
-import Hls from 'hls.js';
+import { useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
@@ -26,37 +25,6 @@ export default function App() {
 
   const { scrollY } = useScroll();
   const rotate = useTransform(scrollY, [0, 2000], [0, 720]);
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (loading) return;
-    const video = videoRef.current;
-    if (!video) return;
-
-    let hls: Hls | null = null;
-    const src = "https://stream.mux.com/r6pXRAJb3005XEEbl1hYU1x01RFJDSn7KQApwNGgAHHbU.m3u8";
-
-    if (Hls.isSupported()) {
-      hls = new Hls();
-      hls.loadSource(src);
-      hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.play().catch(() => { });
-      });
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = src;
-      video.addEventListener('loadedmetadata', () => {
-        video.play().catch(() => { });
-      });
-    }
-
-    return () => {
-      if (hls) {
-        hls.destroy();
-      }
-    };
-  }, [loading]);
 
   useEffect(() => {
     const duration = 3000;
@@ -236,27 +204,43 @@ export default function App() {
                 initial={{ y: 40, opacity: 0, scale: 0.95 }}
                 animate={{ y: 0, opacity: 1, scale: 1 }}
                 transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                className="noise-overlay relative w-full aspect-square md:aspect-[21/9] bg-[#050505] rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)]"
+                className="relative w-full aspect-square md:aspect-[21/9] bg-[#050505] rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)]"
               >
-                {/* Background Video */}
-                <div className="absolute inset-0 pointer-events-none">
-                  <video
-                    ref={videoRef}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+                {/* Background video — mix-blend-screen to melt into black bg */}
+                <video
+                  src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_171521_25968ba2-b594-4b32-aab7-f6b69398a6fa.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover mix-blend-screen"
+                />
+                {/* Subtle dark overlay to deepen the blacks */}
+                <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+
+                {/* Technical Markings / UI Chrome */}
+                <div className="absolute top-6 left-6 flex items-center gap-3">
+                  <div className="w-6 h-px bg-white/40"></div>
+                  <span className="text-[9px] font-mono tracking-[0.2em] text-white/60 uppercase">RN-01</span>
                 </div>
 
+                <div className="absolute bottom-6 right-6 flex items-center gap-3">
+                  <span className="text-[9px] font-mono tracking-[0.2em] text-white/60 uppercase">The Standard</span>
+                  <div className="w-6 h-px bg-white/40"></div>
+                </div>
 
+                <div className="absolute top-6 right-6 text-[9px] font-mono tracking-[0.2em] text-white/30 uppercase">
+                  [ Active ]
+                </div>
+
+                <div className="absolute bottom-6 left-6 text-[9px] font-mono tracking-[0.2em] text-white/30 uppercase">
+                  SYS.RDY
+                </div>
               </motion.div>
             </div>
 
+
             <TheRoninOne />
-            <TheTransitionVideo />
             <TheFounder />
             <TheApply />
             <TheApplyModal />

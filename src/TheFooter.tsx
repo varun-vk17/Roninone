@@ -75,9 +75,9 @@ export default function TheFooter() {
                 loop
                 muted
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover z-0 mix-blend-screen opacity-50"
+                className="absolute inset-0 w-full h-full object-cover z-0 mix-blend-screen"
             />
-            <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none" />
+            <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none" />
 
             <div className="w-full h-px bg-white/20 mb-16 relative z-10" />
 
