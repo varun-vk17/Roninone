@@ -30,6 +30,7 @@ export default function App() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    if (loading) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -55,7 +56,7 @@ export default function App() {
         hls.destroy();
       }
     };
-  }, []);
+  }, [loading]);
 
   useEffect(() => {
     const duration = 3000;
@@ -250,28 +251,7 @@ export default function App() {
                   <div className="absolute inset-0 bg-black/20 pointer-events-none" />
                 </div>
 
-                {/* Technical Markings / UI Chrome */}
-                <div className="absolute top-6 left-6 flex items-center gap-3">
-                  <div className="w-6 h-px bg-white/40"></div>
-                  <span className="text-[9px] font-mono tracking-[0.2em] text-white/60 uppercase">RN-01</span>
-                </div>
 
-                <div className="absolute bottom-6 right-6 flex items-center gap-3">
-                  <span className="text-[9px] font-mono tracking-[0.2em] text-white/60 uppercase">The Standard</span>
-                  <div className="w-6 h-px bg-white/40"></div>
-                </div>
-
-                <div className="absolute top-6 right-6 text-[9px] font-mono tracking-[0.2em] text-white/30 uppercase">
-                  [ Active ]
-                </div>
-
-                <div className="absolute bottom-6 left-6 text-[9px] font-mono tracking-[0.2em] text-white/30 uppercase">
-                  SYS.RDY
-                </div>
-
-                {/* Crosshairs */}
-                <div className="absolute top-0 bottom-0 left-1/2 w-px bg-white/10 pointer-events-none"></div>
-                <div className="absolute left-0 right-0 top-1/2 h-px bg-white/10 pointer-events-none"></div>
               </motion.div>
             </div>
 
