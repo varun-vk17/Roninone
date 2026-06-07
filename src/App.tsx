@@ -163,7 +163,9 @@ export default function App() {
                 transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="w-full max-w-6xl font-display text-4xl sm:text-[2.7rem] font-medium leading-[1.05] tracking-tighter md:text-[4rem] lg:text-[4.8rem] text-neutral-100"
               >
-                We help businesses <br />look as good as they actually are.
+                We build websites
+                that <br />do the selling
+                before you say a word.
               </motion.h1>
 
               <motion.p
@@ -183,10 +185,10 @@ export default function App() {
               >
                 <motion.button
                   onClick={openApplyModal}
-                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.12)", borderColor: "rgba(255,255,255,0.4)" }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  className="group relative overflow-hidden rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-8 py-4 text-xs font-medium text-white transition-shadow duration-300 hover:shadow-[0_0_40px_0_rgba(0,255,204,0.3)] shadow-xl"
+                  className="liquid-glass group relative overflow-hidden rounded-full px-8 py-4 text-xs font-medium text-white transition-shadow duration-300 hover:shadow-[0_0_40px_0_rgba(0,255,204,0.3)] shadow-xl"
                 >
                   <span className="relative z-10">Start a Project</span>
                 </motion.button>
