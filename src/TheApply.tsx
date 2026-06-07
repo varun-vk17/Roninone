@@ -55,7 +55,7 @@ export default function TheApply() {
                     <div className="h-px w-6 bg-white/30" />
                 </div>
                 <h2 className="ac font-display text-4xl sm:text-5xl md:text-[4.5rem] lg:text-[5rem] text-white font-medium tracking-tighter leading-[1.0]">
-                    The page your business<br />has been waiting for.
+                    Become the obvious choice.
                 </h2>
             </div>
 
@@ -106,15 +106,14 @@ export default function TheApply() {
 
                             {/* Top — copy */}
                             <div className="relative z-10 space-y-4 sm:space-y-5">
-                                <span className="font-mono text-[9px] text-white/40 tracking-[0.3em] uppercase block">Ronin One</span>
+                                <span className="font-mono text-[9px] text-white/40 tracking-[0.3em] uppercase block">Ronin</span>
                                 <p className="font-display text-xl sm:text-2xl md:text-3xl text-white font-medium tracking-tight leading-tight">
-                                    We work with businesses ready to stop guessing
-                                    and start converting.
+                                    Let's build the version of your business people immediately understand.
                                 </p>
                                 <p className="font-sans text-sm text-white/40 leading-relaxed tracking-tight">
-                                    No more confusion.<br />
-                                    No more weak positioning.<br />
-                                    No more wasted traffic.
+                                    Built around clarity.<br />
+                                    Designed for trust.<br />
+                                    Made to be chosen.
                                 </p>
                             </div>
 
@@ -126,11 +125,11 @@ export default function TheApply() {
                                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-50" />
                                         <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white/80" />
                                     </span>
-                                    <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/50">3 spots open</span>
+                                    <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/50">Currently accepting new projects.</span>
                                 </div>
                                 {/* CTA */}
                                 <button onClick={openApplyModal} className="group flex items-center gap-2 sm:gap-3 bg-white text-black font-display font-semibold text-sm md:text-base px-6 py-3 sm:px-8 sm:py-4 rounded-full hover:bg-white/90 transition-all duration-300 shadow-[0_0_50px_rgba(255,255,255,0.18)] hover:shadow-[0_0_80px_rgba(255,255,255,0.3)] self-start">
-                                    Get clarity audit
+                                    Start Project
                                     <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
                                 </button>
                             </div>

@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { openApplyModal } from './TheApplyModal';
+import TheMission from './TheMission';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,8 +35,8 @@ export default function TheRoninOne() {
     const cardsData = [
         {
             num: '01',
-            title: 'It starts with clarity',
-            description: "If people don’t understand your business instantly,they don’t stay — and nothing converts.",
+            title: 'Be Clear',
+            description: "People should understand what you do in seconds. If they have to figure it out, you've already lost them.",
             blobs: (
                 <>
                     <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 via-blue-600 to-[#5443d3] opacity-50" />
@@ -51,8 +52,8 @@ export default function TheRoninOne() {
         },
         {
             num: '02',
-            title: 'Then it creates direction',
-            description: "Your business guides people — step by step —toward one clear decision.",
+            title: 'Keep Attention',
+            description: "Once people arrive, give them a reason to stay. Good design keeps people interested.",
             blobs: (
                 <>
                     <div className="absolute inset-0 bg-gradient-to-t from-cyan-500 via-blue-600 to-[#5443d3] opacity-50" />
@@ -68,8 +69,8 @@ export default function TheRoninOne() {
         },
         {
             num: '03',
-            title: 'Revenue is the Result',
-            description: "Every element must earn its place —or it quietly costs you revenue.",
+            title: 'Build Trust',
+            description: "People buy from businesses they trust. Your website should make that trust feel natural.",
             blobs: (
                 <>
                     <div className="absolute inset-0 bg-gradient-to-bl from-cyan-500 via-blue-600 to-[#5443d3] opacity-50" />
@@ -95,29 +96,13 @@ export default function TheRoninOne() {
                 MOMENT 1 — The Declaration
             ───────────────────────────────────────────── */}
             <div className="w-full flex flex-col items-center text-center px-6 pt-36 max-w-4xl mx-auto">
-                <div className="cb inline-flex items-center gap-2 mb-10">
-                    <div className="h-px w-6 bg-white/30" />
-                    <span className="font-mono text-[10px] text-white tracking-[0.4em] uppercase opacity-70">Ronin One</span>
-                    <div className="h-px w-6 bg-white/30" />
+                <div className="cb inline-flex items-center gap-3 mb-10">
+                    <div className="h-px w-8 bg-white/30" />
+                    <span className="font-mono text-xs sm:text-sm md:text-base text-white tracking-[0.4em] uppercase opacity-70">The Disconnect</span>
+                    <div className="h-px w-8 bg-white/30" />
                 </div>
 
-                {/* Context */}
-                <div className="cb space-y-4 mb-16">
-                    <p className="font-sans text-base md:text-lg text-white/40 tracking-tight leading-relaxed max-w-xl">
-                        For years, businesses relied on design, guesswork, and hope.
-                    </p>
-                    <p className="font-sans text-base md:text-lg text-white/40 tracking-tight leading-relaxed max-w-xl">
-                        Most still do.
-                    </p>
-                </div>
 
-                {/* The Headline */}
-                <div className="cb pb-28">
-                    <h2 className="font-display text-4xl sm:text-5xl md:text-[4.5rem] lg:text-[5.5rem] text-white font-medium tracking-tighter leading-[1.0]">
-                        Ronin One.<br />
-                        <span className="text-white/60 whitespace-normal sm:whitespace-nowrap text-[1.8rem] sm:text-[2.2rem] md:text-[3.4rem] lg:text-[4rem]">The standard for your business</span>
-                    </h2>
-                </div>
             </div>
 
             {/* ─────────────────────────────────────────────
@@ -129,34 +114,37 @@ export default function TheRoninOne() {
                     {/* Stitched inner border */}
                     <div className="absolute inset-[14px] rounded-[2rem] border border-white/10 border-dashed pointer-events-none z-0" />
 
-                    {/* Ronin Badge */}
                     <div className="absolute top-6 right-6 sm:top-8 sm:right-8 md:top-10 md:right-10 z-20 inline-flex items-center gap-2.5 border border-white/10 rounded-full px-4 py-2 bg-white/[0.04] scale-90 sm:scale-100 origin-top-right">
                         <span className="relative flex h-1.5 w-1.5">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-50" />
                             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-400" />
                         </span>
-                        <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/50">Ronin One</span>
+                        <span className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/50">The Reality</span>
                     </div>
 
-                    <div className="relative z-10 p-6 pt-16 sm:p-10 sm:pt-20 md:p-16 flex flex-col gap-8 sm:gap-10">
+                    <div className="relative z-10 p-6 pt-16 sm:p-10 sm:pt-20 md:p-16 flex flex-col gap-6 sm:gap-8">
 
                         {/* Headline */}
-                        <p className="font-sans text-xl sm:text-2xl md:text-3xl text-white/85 leading-snug tracking-tight font-light mt-4 sm:mt-0">
-                            At some point, your business has to make sense.
+                        <p className="font-sans text-2xl sm:text-3xl md:text-4xl text-white/90 leading-snug tracking-tight font-medium mt-4 sm:mt-0">
+                            Great businesses get overlooked every day.
                         </p>
 
                         {/* Separator */}
                         <div className="w-full h-px bg-white/[0.07]" />
 
                         {/* Subtext */}
-                        <div className="space-y-4 sm:space-y-5">
-                            <p className="font-sans text-base sm:text-lg text-white/50 leading-relaxed tracking-tight">
-                                Whether you're starting from scratch or fixing what’s already there,
-                                Ronin is built to do one thing —
-                                turn understanding into action.
+                        <div className="space-y-6 sm:space-y-8">
+                            <p className="font-sans text-base sm:text-xl text-white/60 leading-relaxed tracking-tight">
+                                Not because they're worse.<br />
+                                Not because people don't need them.
                             </p>
-                            <p className="font-sans text-base sm:text-lg text-white/50 leading-relaxed tracking-tight">
-                                Because without clarity, nothing else matters.
+
+                            <p className="font-sans text-lg sm:text-2xl text-white/85 leading-relaxed tracking-tight">
+                                But because what makes them valuable isn't immediately clear.
+                            </p>
+
+                            <p className="font-sans text-base sm:text-xl text-white/60 leading-relaxed tracking-tight">
+                                When people don't understand the difference, they choose what's familiar.
                             </p>
                         </div>
 
@@ -164,73 +152,75 @@ export default function TheRoninOne() {
                         <div className="w-full h-px bg-white/[0.07]" />
 
                         {/* Experience layer */}
-                        <p className="font-sans text-base sm:text-lg text-white/40 leading-relaxed tracking-tight italic">
-                            From first impression to final decision,
-                            every step is designed to be clear, focused, and frictionless.
+                        <p className="font-sans text-xl sm:text-2xl text-white/80 leading-relaxed tracking-tight italic">
+                            The goal isn't to look different.<br />
+                            <span className="text-white not-italic font-medium mt-2 block">It's to be understood.</span>
                         </p>
 
                     </div>
                 </div>
             </div>
 
+            <TheMission />
+
             {/* ─────────────────────────────────────────────
                 MOMENT 3 — Feature Cards
             ───────────────────────────────────────────── */}
-            <div className="cb w-full max-w-[1120px] mx-auto px-4 pt-48 md:pt-[18rem] pb-32">
+            <div className="cb w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 pt-32 sm:pt-48 pb-12 sm:pb-20">
                 {/* Bridge line */}
                 <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white font-medium tracking-tight mb-16 sm:mb-24 text-center">
-                    Every Ronin system follows the same principle.
+                    Every good website does three things.
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {cardsData.map((card) => (
-                        <motion.div
-                            whileHover="hover"
-                            onClick={openApplyModal}
-                            key={card.num}
-                            className="relative rounded-[1.75rem] overflow-hidden flex flex-col justify-between bg-[#050505] transition-colors duration-700 hover:bg-[#070707] cursor-pointer group/card"
-                            style={{ minHeight: '460px' }}
-                        >
-                            {/* Blobs */}
-                            <motion.div
-                                variants={{
-                                    hover: { scale: 1.08, opacity: 1, filter: "brightness(1.5)" }
-                                }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                className="absolute inset-0 mix-blend-screen pointer-events-none"
-                            >
-                                {card.blobs}
-                            </motion.div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+                    {/* Card 1 */}
+                    <div className="relative h-[380px] sm:h-[460px] rounded-2xl bg-neutral-950 overflow-hidden p-6 sm:p-8">
+                        <div className="absolute top-1/2 -translate-y-1/2 -left-[420px] h-[460px] w-[460px] rounded-full bg-[#1e3a8a] blur-3xl opacity-40 pointer-events-none" />
+                        <div className="relative z-10 flex flex-col h-full">
+                            <h3 className="font-display text-2xl sm:text-3xl text-white font-medium tracking-tight leading-tight">
+                                Be Clear
+                            </h3>
+                            <p className="mt-12 sm:mt-20 font-sans text-base sm:text-[1.1rem] text-white/60 tracking-tight leading-relaxed max-w-[280px]">
+                                People should understand what you do in seconds. If they have to figure it out, you've already lost them.
+                            </p>
+                        </div>
+                    </div>
 
-                            {/* Grain */}
-                            <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")`, backgroundSize: '180px 180px', opacity: 0.35, mixBlendMode: 'soft-light' }} />
+                    {/* Card 2 */}
+                    <div className="relative h-[380px] sm:h-[460px] rounded-2xl bg-neutral-950 overflow-hidden flex flex-col">
+                        <div className="relative w-full overflow-hidden" style={{ height: '75%' }}>
+                            <video 
+                                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260421_072701_f6a01abb-eb30-4559-9d6e-774362defbc3.mp4" 
+                                autoPlay 
+                                loop 
+                                muted 
+                                playsInline 
+                                className="w-full h-full object-contain block mix-blend-screen scale-[1.15] translate-y-4" 
+                            />
+                            <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-neutral-950" />
+                        </div>
+                        <div className="flex-1 flex flex-col items-start justify-center p-6 sm:p-8">
+                            <h3 className="font-display text-2xl sm:text-3xl text-white font-medium tracking-tight leading-tight text-left mb-1.5">
+                                Keep Attention
+                            </h3>
+                            <p className="font-sans text-base sm:text-[1.1rem] text-white/60 tracking-tight leading-relaxed text-left">
+                                Once people arrive, give them a reason to stay. Good design keeps people interested.
+                            </p>
+                        </div>
+                    </div>
 
-                            {/* Visual orb */}
-                            <div className="relative z-10 flex-1 flex items-center justify-center">
-                                <div className="relative w-24 h-24 rounded-full bg-[#020202]/80 border border-white/20 shadow-[inset_0_0_30px_rgba(0,0,0,1),0_0_50px_rgba(0,0,0,0.6)] flex items-center justify-center">
-                                    <div className="absolute inset-3 rounded-full border border-white/10 border-dashed" />
-                                    {card.icon}
-                                </div>
-                            </div>
-
-                            {/* Bottom info block */}
-                            <motion.div
-                                variants={{ hover: { y: -10, backgroundColor: "rgba(10, 10, 10, 0.95)", borderColor: "rgba(0, 255, 204, 0.4)" } }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                className="relative z-10 m-3 rounded-2xl bg-[#020202]/85 border border-white/20 shadow-[inset_0_0_30px_rgba(0,0,0,1),0_10px_40px_rgba(0,0,0,0.6)] backdrop-blur-md p-6"
-                            >
-                                <div className="absolute inset-[10px] rounded-xl border border-white/10 border-dashed pointer-events-none" />
-                                <div className="relative z-10 space-y-2">
-                                    <span className="font-mono text-[9px] text-white/40 tracking-[0.3em] uppercase block">{card.num}</span>
-                                    <h3 className="font-display text-[1.25rem] text-white font-medium tracking-tight leading-tight">
-                                        {card.title}
-                                    </h3>
-                                    <p className="font-sans text-[0.85rem] text-white/60 tracking-tight leading-relaxed">
-                                        {card.description}
-                                    </p>
-                                </div>
-                            </motion.div>
-                        </motion.div>
-                    ))}
+                    {/* Card 3 */}
+                    <div className="relative h-[380px] sm:h-[460px] rounded-2xl bg-neutral-950 overflow-hidden p-6 sm:p-8">
+                        <div className="absolute -top-28 -right-28 h-56 w-56 rounded-full bg-[#1e3a8a] blur-3xl opacity-40 pointer-events-none" />
+                        <div className="relative z-10 flex flex-col h-full">
+                            <h3 className="font-display text-2xl sm:text-3xl text-white font-medium tracking-tight leading-tight">
+                                Build Trust
+                            </h3>
+                            <p className="mt-auto font-sans text-base sm:text-[1.1rem] text-white/60 tracking-tight leading-relaxed max-w-[320px]">
+                                People buy from businesses they trust. Your website should make that trust feel natural.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -240,7 +230,7 @@ export default function TheRoninOne() {
             <div className="w-full flex flex-col items-center text-center px-6 pb-24 sm:pb-36 max-w-4xl mx-auto space-y-12">
                 <div className="cb space-y-6">
                     <h3 className="font-display text-3xl sm:text-4xl md:text-[3.5rem] text-white font-medium tracking-tighter leading-[1.05]">
-                        This is what your business <br className="hidden sm:block" /> should feel like.
+                        This is what a better website <br className="hidden sm:block" /> feels like.
                     </h3>
                 </div>
             </div>

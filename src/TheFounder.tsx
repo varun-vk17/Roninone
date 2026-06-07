@@ -85,7 +85,7 @@ export default function TheFounder() {
 
                         {/* Core Statement */}
                         <p className="font-sans text-lg sm:text-xl md:text-2xl text-white/80 leading-snug tracking-tight font-light mb-6 sm:mb-8 max-w-lg">
-                            Turning unclear businesses into trusted, revenue-driving systems.
+                            Ronin exists to shape how businesses are understood, trusted, and remembered.
                         </p>
 
                         {/* Clean minimal separator */}
@@ -94,23 +94,20 @@ export default function TheFounder() {
                         {/* HUD Dossier Metadata */}
                         <div className="grid grid-cols-2 gap-x-6 sm:gap-x-12 gap-y-4 sm:gap-y-6 z-10 relative mt-2">
                             <div className="flex flex-col gap-1">
-                                <span className="font-mono text-[9px] text-white/30 uppercase tracking-[0.3em]">Location</span>
-                                <span className="font-sans text-sm md:text-base text-white/90 font-medium tracking-wide">Global</span>
-                            </div>
-                            <div className="flex flex-col gap-1">
                                 <span className="font-mono text-[9px] text-white/30 uppercase tracking-[0.3em]">Focus</span>
-                                <span className="font-sans text-sm md:text-base text-white/90 font-medium tracking-wide">Conversion UX</span>
+                                <span className="font-sans text-sm md:text-base text-white/90 font-medium tracking-wide">Clarity & Design</span>
                             </div>
                             <div className="flex flex-col gap-1">
-                                <span className="font-mono text-[9px] text-white/30 uppercase tracking-[0.3em]">Standard</span>
-                                <span className="font-sans text-sm md:text-base text-white/90 font-medium tracking-wide">Ronin One</span>
+                                <span className="font-mono text-[9px] text-white/30 uppercase tracking-[0.3em]">Built For</span>
+                                <span className="font-sans text-sm md:text-base text-white/90 font-medium tracking-wide">Growing Businesses</span>
                             </div>
                             <div className="flex flex-col gap-1">
-                                <span className="font-mono text-[9px] text-white/30 uppercase tracking-[0.3em]">Status</span>
-                                <div className="flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                                    <span className="font-sans text-sm md:text-base text-cyan-400 font-medium tracking-wide">Active</span>
-                                </div>
+                                <span className="font-mono text-[9px] text-white/30 uppercase tracking-[0.3em]">Approach</span>
+                                <span className="font-sans text-sm md:text-base text-white/90 font-medium tracking-wide">Simple & Intentional</span>
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <span className="font-mono text-[9px] text-white/30 uppercase tracking-[0.3em]">Goal</span>
+                                <span className="font-sans text-sm md:text-base text-white/90 font-medium tracking-wide">Be Understood</span>
                             </div>
                         </div>
 
@@ -119,19 +116,11 @@ export default function TheFounder() {
 
                 <div className="fc w-full max-w-4xl pl-2">
                     <p className="font-sans text-base sm:text-lg md:text-2xl text-white/50 leading-relaxed font-light tracking-tight">
-                        Varun built Ronin after seeing the same problem again and again —
-                        good businesses that don’t convert.
-
-                        Not because the product is bad,
-                        but because it’s unclear, unfocused, and poorly positioned.
-
-                        Most try to fix this with design, tools, or more traffic.
-                        It doesn’t work.
-
-                        Ronin was built to fix the real problem —
-                        clarity, trust, and conversion.
-
-                        One system. One focus. One standard.
+                        Ronin began with a simple belief.<br />
+                        Great businesses shouldn't have to fight to be understood.<br />
+                        Today, that belief takes shape through websites.<br />
+                        Over time, it will extend into every experience that shapes how a business is seen, trusted, and remembered.<br /><br />
+                        <span className="text-white/80 font-medium">This is only the beginning.</span>
                     </p>
                 </div>
 

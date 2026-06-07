@@ -14,6 +14,7 @@ import TheFounder from './TheFounder';
 import TheApply from './TheApply';
 import TheFooter from './TheFooter';
 import TheApplyModal, { openApplyModal } from './TheApplyModal';
+import TheTransitionVideo from './TheTransitionVideo';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 
@@ -149,7 +150,7 @@ export default function App() {
 
               <div className="flex items-center pr-2 z-10">
                 <button onClick={openApplyModal} className="rounded-full bg-white px-4 py-2 sm:px-6 sm:py-3 text-[10px] sm:text-xs font-bold text-black transition-transform hover:scale-105">
-                  Get clarity audit
+                  Start a Project
                 </button>
               </div>
             </motion.nav>
@@ -162,7 +163,7 @@ export default function App() {
                 transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="w-full max-w-6xl font-display text-4xl sm:text-[2.7rem] font-medium leading-[1.05] tracking-tighter md:text-[4rem] lg:text-[4.8rem] text-neutral-100"
               >
-                We build businesses that people understand, trust, and buy from
+                We help businesses <br />look as good as they actually are.
               </motion.h1>
 
               <motion.p
@@ -171,7 +172,7 @@ export default function App() {
                 transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
                 className="mt-6 max-w-2xl text-base sm:text-lg text-neutral-400 md:text-xl font-sans"
               >
-                By fixing your clarity, positioning, and conversion—so people understand you and take action.
+                Ronin designs premium websites that help businesses earn trust, communicate value, and become the obvious choice.
               </motion.p>
 
               <motion.div
@@ -187,7 +188,7 @@ export default function App() {
                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
                   className="group relative overflow-hidden rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-8 py-4 text-xs font-medium text-white transition-shadow duration-300 hover:shadow-[0_0_40px_0_rgba(0,255,204,0.3)] shadow-xl"
                 >
-                  <span className="relative z-10">Get clarity audit</span>
+                  <span className="relative z-10">Start a Project</span>
                 </motion.button>
               </motion.div>
             </main>
@@ -202,7 +203,7 @@ export default function App() {
                 className="noise-overlay relative w-full aspect-square md:aspect-[21/9] bg-[#050505] rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)]"
               >
                 {/* Vibrant Gradient Mesh (The Color) */}
-                <div className="absolute inset-0 opacity-90 mix-blend-screen">
+                <div className="absolute inset-0 opacity-90 transform-gpu">
                   <motion.div
                     animate={{
                       x: ['-10%', '10%', '-10%'],
@@ -210,7 +211,7 @@ export default function App() {
                     }}
                     transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
                     style={{ willChange: 'transform' }}
-                    className="absolute top-[-20%] left-[-10%] w-[60%] h-[80%] bg-cyan-600 rounded-full blur-[60px] opacity-70"
+                    className="absolute top-[-20%] left-[-10%] w-[60%] h-[80%] bg-cyan-600 rounded-full blur-[60px] opacity-60"
                   />
                   <motion.div
                     animate={{
@@ -219,7 +220,7 @@ export default function App() {
                     }}
                     transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
                     style={{ willChange: 'transform' }}
-                    className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[90%] bg-blue-700 rounded-full blur-[70px] opacity-70"
+                    className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[90%] bg-blue-700 rounded-full blur-[70px] opacity-60"
                   />
                   <motion.div
                     animate={{
@@ -228,17 +229,16 @@ export default function App() {
                     }}
                     transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
                     style={{ willChange: 'transform' }}
-                    className="absolute top-[10%] right-[20%] w-[40%] h-[60%] bg-[#5443d3] rounded-full blur-[50px] opacity-60"
+                    className="absolute top-[10%] right-[20%] w-[40%] h-[60%] bg-[#5443d3] rounded-full blur-[50px] opacity-50"
                   />
                   {/* Grain on gradients */}
                   <div
-                    className="absolute inset-0 pointer-events-none"
+                    className="absolute inset-0 pointer-events-none transform-gpu"
                     style={{
                       backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")`,
                       backgroundSize: '180px 180px',
                       backgroundRepeat: 'repeat',
-                      opacity: 0.18,
-                      mixBlendMode: 'soft-light',
+                      opacity: 0.12,
                     }}
                   />
                 </div>
@@ -295,6 +295,7 @@ export default function App() {
             </div>
 
             <TheRoninOne />
+            <TheTransitionVideo />
             <TheFounder />
             <TheApply />
             <TheApplyModal />

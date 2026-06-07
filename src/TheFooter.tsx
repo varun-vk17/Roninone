@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { openApplyModal } from './TheApplyModal';
+import Hls from 'hls.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,12 +19,12 @@ export default function TheFooter() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.fromTo('.footer-mark', 
-                { opacity: 0, y: 50 }, 
-                { 
-                    opacity: 1, 
-                    y: 0, 
-                    duration: 1.2, 
+            gsap.fromTo('.footer-mark',
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.2,
                     ease: 'power3.out',
                     scrollTrigger: {
                         trigger: footerRef.current,
@@ -35,17 +36,58 @@ export default function TheFooter() {
         return () => ctx.revert();
     }, []);
 
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        let hls: Hls | null = null;
+        const src = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
+
+        if (Hls.isSupported()) {
+            hls = new Hls();
+            hls.loadSource(src);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                video.play().catch(() => { });
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = src;
+            video.addEventListener('loadedmetadata', () => {
+                video.play().catch(() => { });
+            });
+        }
+
+        return () => {
+            if (hls) {
+                hls.destroy();
+            }
+        };
+    }, []);
+
     return (
-        <section className="relative z-10 w-full bg-[#000] px-4 md:px-8 pb-8">
-            <div className="w-full h-px bg-white/20 mb-16" />
-            
-            <footer 
+        <section className="relative z-10 w-full bg-[#000] px-4 md:px-8 pb-8 overflow-hidden">
+            {/* Background Video */}
+            <video
+                ref={videoRef}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover z-0 mix-blend-screen opacity-50"
+            />
+            <div className="absolute inset-0 bg-black/40 z-0 pointer-events-none" />
+
+            <div className="w-full h-px bg-white/20 mb-16 relative z-10" />
+
+            <footer
                 ref={footerRef}
-                className="w-full flex flex-col items-center overflow-hidden"
+                className="w-full flex flex-col items-center overflow-hidden relative z-10"
             >
                 {/* Top Navigation Grid */}
                 <div className="w-full grid grid-cols-2 md:grid-cols-12 gap-8 sm:gap-10 mb-16 sm:mb-20 md:mb-32">
-                    
+
                     {/* Col 1 — Navigation */}
                     <div className="col-span-1 md:col-span-2 flex flex-col gap-2">
                         <span className="font-sans text-[13px] text-white/40 mb-2">Navigation</span>
@@ -90,7 +132,7 @@ export default function TheFooter() {
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                             >
-                                <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                                <path d="M7 17L17 7M17 7H7M17 7v10" />
                             </svg>
                         </a>
                         <a
@@ -112,7 +154,7 @@ export default function TheFooter() {
                             onClick={openApplyModal}
                             className="font-sans text-[15px] text-white font-medium underline underline-offset-[6px] decoration-white/40 hover:decoration-white transition-all w-fit md:ml-auto"
                         >
-                            Get clarity audit
+                            Start Project
                         </button>
                     </div>
 
@@ -120,7 +162,7 @@ export default function TheFooter() {
 
                 {/* Wordmark */}
                 <div className="w-full flex justify-center items-center footer-mark pb-16 md:pb-32 overflow-hidden px-4">
-                    <span 
+                    <span
                         className="font-sans font-semibold text-white tracking-tight leading-[0.85] select-none text-center whitespace-nowrap"
                         style={{ fontSize: 'clamp(1.8rem, 8.5vw, 12rem)' }}
                     >
@@ -142,7 +184,7 @@ export default function TheFooter() {
                         Varun Kumaran
                     </a>
                 </div>
-                
+
             </footer>
         </section>
     );
