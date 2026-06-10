@@ -1,36 +1,17 @@
-import { useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { openApplyModal } from './TheApplyModal';
 import TheMission from './TheMission';
+import LazyVideo from './LazyVideo';
 
-gsap.registerPlugin(ScrollTrigger);
+const fadeInUp = {
+    initial: { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-10% 0px -10% 0px" },
+    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] }
+};
+
 
 export default function TheRoninOne() {
-    const sectionRef = useRef<HTMLElement>(null);
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.utils.toArray<HTMLElement>('.cb').forEach((el, i) => {
-                gsap.fromTo(el,
-                    { opacity: 0, y: 24 },
-                    {
-                        opacity: 1, y: 0,
-                        duration: 0.9,
-                        ease: 'power3.out',
-                        delay: i * 0.04,
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 90%',
-                            toggleActions: 'play none none none',
-                        }
-                    }
-                );
-            });
-        }, sectionRef);
-        return () => ctx.revert();
-    }, []);
 
     const cardsData = [
         {
@@ -89,18 +70,17 @@ export default function TheRoninOne() {
     return (
         <section
             id="ronin-one"
-            ref={sectionRef}
             className="relative w-full bg-transparent flex flex-col items-center overflow-hidden"
         >
             {/* ─────────────────────────────────────────────
                 MOMENT 1 — The Declaration
             ───────────────────────────────────────────── */}
             <div className="w-full flex flex-col items-center text-center px-6 pt-36 max-w-4xl mx-auto">
-                <div className="cb inline-flex items-center gap-3 mb-10">
+                <motion.div {...fadeInUp} className="inline-flex items-center gap-3 mb-10">
                     <div className="h-px w-8 bg-white/30" />
                     <span className="font-mono text-xs sm:text-sm md:text-base text-white tracking-[0.4em] uppercase opacity-70">The Disconnect</span>
                     <div className="h-px w-8 bg-white/30" />
-                </div>
+                </motion.div>
 
 
             </div>
@@ -108,7 +88,7 @@ export default function TheRoninOne() {
             {/* ─────────────────────────────────────────────
                 MOMENT 2 — The Black Box
             ───────────────────────────────────────────── */}
-            <div className="cb w-full max-w-[1040px] mx-auto px-6 pb-0">
+            <motion.div {...fadeInUp} className="w-full max-w-[1040px] mx-auto px-6 pb-0">
                 <div className="relative w-full bg-[#020202]/90 backdrop-blur-md rounded-[2.5rem] border border-white/20 shadow-[inset_0_0_50px_rgba(0,0,0,1),0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden">
 
                     {/* Stitched inner border */}
@@ -125,7 +105,7 @@ export default function TheRoninOne() {
                     <div className="relative z-10 p-6 pt-16 sm:p-10 sm:pt-20 md:p-16 flex flex-col gap-6 sm:gap-8">
 
                         {/* Headline */}
-                        <p className="font-sans text-2xl sm:text-3xl md:text-4xl text-white/90 leading-snug tracking-tight font-medium mt-4 sm:mt-0">
+                        <p className="font-quirlone text-2xl sm:text-3xl md:text-4xl text-white/90 leading-snug tracking-tight font-medium mt-4 sm:mt-0">
                             Great businesses get overlooked every day.
                         </p>
 
@@ -159,14 +139,14 @@ export default function TheRoninOne() {
 
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             <TheMission />
 
             {/* ─────────────────────────────────────────────
                 MOMENT 3 — Feature Cards
             ───────────────────────────────────────────── */}
-            <div className="cb w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 pt-32 sm:pt-48 pb-12 sm:pb-20">
+            <motion.div {...fadeInUp} className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 pt-32 sm:pt-48 pb-12 sm:pb-20">
                 {/* Bridge line */}
                 <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white font-medium tracking-tight mb-16 sm:mb-24 text-center">
                     Every good website does three things.
@@ -189,7 +169,7 @@ export default function TheRoninOne() {
                     {/* Card 2 */}
                     <div className="relative h-[380px] sm:h-[460px] rounded-2xl bg-neutral-950 overflow-hidden flex flex-col">
                         <div className="relative w-full overflow-hidden" style={{ height: '75%' }}>
-                            <video 
+                            <LazyVideo 
                                 src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260421_072701_f6a01abb-eb30-4559-9d6e-774362defbc3.mp4" 
                                 autoPlay 
                                 loop 
@@ -222,17 +202,17 @@ export default function TheRoninOne() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* ─────────────────────────────────────────────
                 MOMENT 4 — Verdict + CTA
             ───────────────────────────────────────────── */}
             <div className="w-full flex flex-col items-center text-center px-6 pb-24 sm:pb-36 max-w-4xl mx-auto space-y-12">
-                <div className="cb space-y-6">
+                <motion.div {...fadeInUp} className="space-y-6">
                     <h3 className="font-display text-3xl sm:text-4xl md:text-[3.5rem] text-white font-medium tracking-tighter leading-[1.05]">
                         This is what a better website <br className="hidden sm:block" /> feels like.
                     </h3>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

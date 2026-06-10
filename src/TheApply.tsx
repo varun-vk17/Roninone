@@ -6,61 +6,41 @@
  * Left: The orb, alive, radiating. Right: The CTA content.
  * Above/below: The same quiet typographic rhythm as Ronin One.
  */
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'motion/react';
 import { openApplyModal } from './TheApplyModal';
 
-gsap.registerPlugin(ScrollTrigger);
+const fadeInUp = {
+    initial: { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-10% 0px -10% 0px" },
+    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] }
+};
+
 
 const GRAIN = `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")`;
 
 export default function TheApply() {
-    const sectionRef = useRef<HTMLElement>(null);
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.utils.toArray<HTMLElement>('.ac').forEach((el, i) => {
-                gsap.fromTo(el,
-                    { opacity: 0, y: 24 },
-                    {
-                        opacity: 1, y: 0,
-                        duration: 0.9,
-                        ease: 'power3.out',
-                        delay: i * 0.05,
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 90%',
-                            toggleActions: 'play none none none',
-                        }
-                    }
-                );
-            });
-        }, sectionRef);
-        return () => ctx.revert();
-    }, []);
 
     return (
         <section
             id="apply"
-            ref={sectionRef}
             className="relative w-full bg-transparent flex flex-col items-center overflow-hidden"
         >
 
             {/* ── Eyebrow ── */}
             <div className="w-full flex flex-col items-center text-center px-6 pt-64 pb-24 md:pb-32 max-w-4xl mx-auto">
-                <div className="ac inline-flex items-center gap-2 mb-10">
+                <motion.div {...fadeInUp} className="inline-flex items-center gap-2 mb-10">
                     <div className="h-px w-6 bg-white/30" />
                     <span className="font-mono text-[10px] text-white tracking-[0.4em] uppercase opacity-70">Apply</span>
                     <div className="h-px w-6 bg-white/30" />
-                </div>
-                <h2 className="ac font-display text-4xl sm:text-5xl md:text-[4.5rem] lg:text-[5rem] text-white font-medium tracking-tighter leading-[1.0]">
+                </motion.div>
+                <motion.h2 {...fadeInUp} className="font-display text-4xl sm:text-5xl md:text-[4.5rem] lg:text-[5rem] text-white font-medium tracking-tighter leading-[1.0]">
                     Become the obvious choice.
-                </h2>
+                </motion.h2>
             </div>
 
             {/* ── The Stage — one wide landscape card ── */}
-            <div className="ac w-full max-w-[1120px] mx-auto px-4 pb-48 md:pb-64">
+            <motion.div {...fadeInUp} className="w-full max-w-[1120px] mx-auto px-4 pb-48 md:pb-64">
                 <div
                     className="relative rounded-[1.75rem] overflow-hidden bg-[#050505] flex flex-col md:flex-row"
                     style={{ minHeight: '480px' }}
@@ -107,7 +87,7 @@ export default function TheApply() {
                             {/* Top — copy */}
                             <div className="relative z-10 space-y-4 sm:space-y-5">
                                 <span className="font-mono text-[9px] text-white/40 tracking-[0.3em] uppercase block">Ronin</span>
-                                <p className="font-display text-xl sm:text-2xl md:text-3xl text-white font-medium tracking-tight leading-tight">
+                                <p className="font-quirlone text-xl sm:text-2xl md:text-3xl text-white font-medium tracking-tight leading-tight">
                                     Let's build the version of your business people immediately understand.
                                 </p>
                                 <p className="font-sans text-sm text-white/40 leading-relaxed tracking-tight">
@@ -136,15 +116,15 @@ export default function TheApply() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* ── Closing line ── */}
-            <div className="ac w-full flex flex-col items-center text-center px-6 pb-48 max-w-4xl mx-auto space-y-4">
+            <motion.div {...fadeInUp} className="w-full flex flex-col items-center text-center px-6 pb-48 max-w-4xl mx-auto space-y-4">
                 <div className="flex flex-col items-center gap-1">
                     <span className="font-mono text-[11px] tracking-[0.4em] uppercase text-white/30">THE RONIN ONE IS</span>
                     <span className="font-display text-xl sm:text-2xl md:text-3xl tracking-tight text-white font-bold">A STANDARD.</span>
                 </div>
-            </div>
+            </motion.div>
 
         </section>
     );

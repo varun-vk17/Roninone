@@ -3,28 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
 
 import TheRoninOne from './TheRoninOne';
 import TheFounder from './TheFounder';
 import TheApply from './TheApply';
 import TheFooter from './TheFooter';
 import TheApplyModal, { openApplyModal } from './TheApplyModal';
-import TheTransitionVideo from './TheTransitionVideo';
-import Lenis from 'lenis';
-import 'lenis/dist/lenis.css';
+import LazyVideo from './LazyVideo';
+import SmoothScroll from './SmoothScroll';
 
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
-
-  const { scrollY } = useScroll();
-  const rotate = useTransform(scrollY, [0, 2000], [0, 720]);
 
   useEffect(() => {
     const duration = 3000;
@@ -42,34 +35,6 @@ export default function App() {
     }, interval);
 
     return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    // Initialize Lenis for that super smooth, Framer-like scrolling
-    const lenis = new Lenis({
-      // Superfast smooth scroll feel
-      lerp: 0.15,
-      wheelMultiplier: 1.5,
-      touchMultiplier: 2,
-    });
-
-    // Synchronize Lenis scrolling with GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
-
-    // Add Lenis's requestAnimationFrame (raf) to GSAP's ticker
-    // This perfectly syncs GSAP animations with the smooth scroll
-    const updateLenis = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-    gsap.ticker.add(updateLenis);
-
-    // Disable GSAP lag smoothing to avoid visual stuttering with Lenis
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      gsap.ticker.remove(updateLenis);
-      lenis.destroy();
-    };
   }, []);
 
   return (
@@ -155,97 +120,98 @@ export default function App() {
               </div>
             </motion.nav>
 
-            {/* Hero Text Content */}
-            <main className="relative z-10 flex w-full flex-col items-center pt-40 md:pt-48 px-4 text-center">
-              <motion.h1
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full max-w-6xl font-display text-4xl sm:text-[2.7rem] font-medium leading-[1.05] tracking-tighter md:text-[4rem] lg:text-[4.8rem] text-neutral-100"
-              >
-                We build websites
-                that <br />do the selling
-                before you say a word.
-              </motion.h1>
-
-              <motion.p
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-6 max-w-2xl text-base sm:text-lg text-neutral-400 md:text-xl font-sans"
-              >
-                Ronin builds websites so clear,
-                so sharp, so right — your business
-                becomes the one they always choose.
-              </motion.p>
-
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-12"
-              >
-                <motion.button
-                  onClick={openApplyModal}
-                  whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.08)", borderColor: "rgba(255,255,255,0.2)" }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                  className="group relative overflow-hidden rounded-full border border-white/[0.08] bg-white/[0.01] backdrop-blur-2xl px-10 py-5 text-sm font-medium text-white transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_0_20px_rgba(255,255,255,0.02),0_10px_40px_rgba(0,0,0,0.5)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_10px_40px_rgba(0,255,204,0.15)]"
-                >
-                  <span className="relative z-10 tracking-wide">Start a Project</span>
-                </motion.button>
-              </motion.div>
-            </main>
-
-            {/* The Visual - The Artifact (Cinematic Gradient & Void) */}
-            <div className="relative mx-auto z-20 mt-20 flex w-full max-w-6xl flex-1 flex-col items-center justify-center px-4 md:px-8 pb-32">
-
-              <motion.div
-                initial={{ y: 40, opacity: 0, scale: 0.95 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                className="relative w-full aspect-square md:aspect-[21/9] bg-[#050505] rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)]"
-              >
-                {/* Background video — mix-blend-screen to melt into black bg */}
-                <video
-                  src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_171521_25968ba2-b594-4b32-aab7-f6b69398a6fa.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="absolute inset-0 w-full h-full object-cover mix-blend-screen"
-                />
-                {/* Subtle dark overlay to deepen the blacks */}
-                <div className="absolute inset-0 bg-black/20 pointer-events-none" />
-
-                {/* Technical Markings / UI Chrome */}
-                <div className="absolute top-6 left-6 flex items-center gap-3">
-                  <div className="w-6 h-px bg-white/40"></div>
-                  <span className="text-[9px] font-mono tracking-[0.2em] text-white/60 uppercase">RN-01</span>
-                </div>
-
-                <div className="absolute bottom-6 right-6 flex items-center gap-3">
-                  <span className="text-[9px] font-mono tracking-[0.2em] text-white/60 uppercase">The Standard</span>
-                  <div className="w-6 h-px bg-white/40"></div>
-                </div>
-
-                <div className="absolute top-6 right-6 text-[9px] font-mono tracking-[0.2em] text-white/30 uppercase">
-                  [ Active ]
-                </div>
-
-                <div className="absolute bottom-6 left-6 text-[9px] font-mono tracking-[0.2em] text-white/30 uppercase">
-                  SYS.RDY
-                </div>
-              </motion.div>
-            </div>
-
-
-            <TheRoninOne />
-            <TheFounder />
-            <TheApply />
             <TheApplyModal />
-            <TheFooter />
 
+            {/* Framer Motion custom smooth scrolling */}
+            <SmoothScroll>
+              {/* Hero Text Content */}
+              <main className="relative z-10 flex w-full flex-col items-center pt-40 md:pt-48 px-4 text-center">
+                <motion.h1
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full max-w-6xl font-display text-4xl sm:text-[2.7rem] font-medium leading-[1.05] tracking-tighter md:text-[4rem] lg:text-[4.8rem] text-neutral-100"
+                >
+                  We build websites
+                  that <br />do the selling
+                  before you say a word.
+                </motion.h1>
+
+                <motion.p
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="mt-6 max-w-2xl text-base sm:text-lg text-neutral-400 md:text-xl font-sans"
+                >
+                  Ronin builds websites so clear,
+                  so sharp, so right — your business
+                  becomes the one they always choose.
+                </motion.p>
+
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="mt-12"
+                >
+                  <motion.button
+                    onClick={openApplyModal}
+                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.08)", borderColor: "rgba(255,255,255,0.2)" }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                    className="group relative overflow-hidden rounded-full border border-white/[0.08] bg-white/[0.01] backdrop-blur-2xl px-10 py-5 text-sm font-medium text-white transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_0_20px_rgba(255,255,255,0.02),0_10px_40px_rgba(0,0,0,0.5)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),0_10px_40px_rgba(0,255,204,0.15)]"
+                  >
+                    <span className="relative z-10 tracking-wide">Start a Project</span>
+                  </motion.button>
+                </motion.div>
+              </main>
+
+              {/* The Visual - The Artifact (Cinematic Gradient & Void) */}
+              <div className="relative mx-auto z-20 mt-20 flex w-full max-w-6xl flex-1 flex-col items-center justify-center px-4 md:px-8 pb-32">
+                <motion.div
+                  initial={{ y: 40, opacity: 0, scale: 0.95 }}
+                  animate={{ y: 0, opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative w-full aspect-square md:aspect-[21/9] bg-[#050505] rounded-3xl border border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)]"
+                >
+                  {/* Background video — mix-blend-screen to melt into black bg */}
+                  <LazyVideo
+                    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_171521_25968ba2-b594-4b32-aab7-f6b69398a6fa.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover mix-blend-screen"
+                  />
+                  {/* Subtle dark overlay to deepen the blacks */}
+                  <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+
+                  {/* Technical Markings / UI Chrome */}
+                  <div className="absolute top-6 left-6 flex items-center gap-3">
+                    <div className="w-6 h-px bg-white/40"></div>
+                    <span className="text-[9px] font-mono tracking-[0.2em] text-white/60 uppercase">RN-01</span>
+                  </div>
+
+                  <div className="absolute bottom-6 right-6 flex items-center gap-3">
+                    <span className="text-[9px] font-mono tracking-[0.2em] text-white/60 uppercase">The Standard</span>
+                    <div className="w-6 h-px bg-white/40"></div>
+                  </div>
+
+                  <div className="absolute top-6 right-6 text-[9px] font-mono tracking-[0.2em] text-white/30 uppercase">
+                    [ Active ]
+                  </div>
+
+                  <div className="absolute bottom-6 left-6 text-[9px] font-mono tracking-[0.2em] text-white/30 uppercase">
+                    SYS.RDY
+                  </div>
+                </motion.div>
+              </div>
+
+              <TheRoninOne />
+              <TheFounder />
+              <TheApply />
+              <TheFooter />
+            </SmoothScroll>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import LazyVideo from './LazyVideo';
 
 const Word = ({ children, progress, range, highlight }: any) => {
     const opacity = useTransform(progress, range, [0.15, 1]);
@@ -57,7 +58,7 @@ export default function TheMission() {
         <section ref={containerRef} className="w-full pt-32 md:pt-48 pb-16 md:pb-24 flex flex-col items-center px-4 relative z-10">
             {/* Large Video Container */}
             <div className="w-full max-w-[800px] aspect-square rounded-[2rem] overflow-hidden mb-24 flex justify-center items-center relative shadow-[0_0_80px_rgba(0,0,0,0.8)]">
-                <video
+                <LazyVideo
                     src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_132944_a0d124bb-eaa1-4082-aa30-2310efb42b4b.mp4"
                     autoPlay
                     loop
@@ -71,7 +72,7 @@ export default function TheMission() {
             {/* Scroll-driven Text Reveal */}
             <div className="w-full max-w-4xl mx-auto text-center flex flex-col gap-8 md:gap-12">
                 {/* Paragraph 1 (Large) */}
-                <p className="text-xl md:text-3xl lg:text-[2.6rem] font-medium tracking-tight leading-snug">
+                <p className="font-quirlone text-xl md:text-3xl lg:text-[2.6rem] font-medium tracking-tight leading-snug">
                     {renderWords(wordsPerLine[0])}
                 </p>
                 {/* Paragraphs 2-5 (Smaller) */}

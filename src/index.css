@@ -1,10 +1,144 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Quirlone Custom Font */
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-thinitalic.otf') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-extralight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-extralightitalic.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-lightitalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-mediumitalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-semibolditalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-bolditalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-extrabold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-extrabolditalic.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Quirlone';
+  src: url('/fonts/quirlone-font/quirlone-blackitalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-quirlone: "Quirlone", serif;
+}
+
+/* Apply Quirlone to all headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Quirlone', serif;
 }
 
 body {

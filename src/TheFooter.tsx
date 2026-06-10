@@ -3,39 +3,23 @@
  * Unio reference layout: Multi-column top links, massive center wordmark, split bottom copyright.
  */
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { motion } from 'motion/react';
 import { openApplyModal } from './TheApplyModal';
 import Hls from 'hls.js';
 
-gsap.registerPlugin(ScrollTrigger);
+const fadeInUp = {
+    initial: { opacity: 0, y: 50 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-5% 0px -5% 0px" },
+    transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+};
+
 
 const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 };
 
 export default function TheFooter() {
-    const footerRef = useRef<HTMLElement>(null);
-
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.fromTo('.footer-mark',
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1.2,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: footerRef.current,
-                        start: 'top 95%',
-                    }
-                }
-            );
-        }, footerRef);
-        return () => ctx.revert();
-    }, []);
-
     const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
@@ -44,22 +28,43 @@ export default function TheFooter() {
 
         let hls: Hls | null = null;
         const src = "https://stream.mux.com/8wrHPCX2dC3msyYU9ObwqNdm00u3ViXvOSHUMRYSEe5Q.m3u8";
+        let isLoaded = false;
 
-        if (Hls.isSupported()) {
-            hls = new Hls();
-            hls.loadSource(src);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                video.play().catch(() => { });
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = src;
-            video.addEventListener('loadedmetadata', () => {
-                video.play().catch(() => { });
-            });
-        }
+        const initHls = () => {
+            if (isLoaded) return;
+            isLoaded = true;
+
+            if (Hls.isSupported()) {
+                hls = new Hls();
+                hls.loadSource(src);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    video.play().catch(() => { });
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = src;
+                video.addEventListener('loadedmetadata', () => {
+                    video.play().catch(() => { });
+                });
+            }
+        };
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    initHls();
+                    video.play().catch(() => { });
+                } else {
+                    video.pause();
+                }
+            },
+            { rootMargin: '400px' }
+        );
+
+        observer.observe(video);
 
         return () => {
+            observer.disconnect();
             if (hls) {
                 hls.destroy();
             }
@@ -82,7 +87,6 @@ export default function TheFooter() {
             <div className="w-full h-px bg-white/20 mb-16 relative z-10" />
 
             <footer
-                ref={footerRef}
                 className="w-full flex flex-col items-center overflow-hidden relative z-10"
             >
                 {/* Top Navigation Grid */}
@@ -161,14 +165,17 @@ export default function TheFooter() {
                 </div>
 
                 {/* Wordmark */}
-                <div className="w-full flex justify-center items-center footer-mark pb-16 md:pb-32 overflow-hidden px-4">
+                <motion.div
+                    {...fadeInUp}
+                    className="w-full flex justify-center items-center pb-16 md:pb-32 overflow-hidden px-4"
+                >
                     <span
                         className="font-sans font-semibold text-white tracking-tight leading-[0.85] select-none text-center whitespace-nowrap"
                         style={{ fontSize: 'clamp(1.8rem, 8.5vw, 12rem)' }}
                     >
                         Make It Matter
                     </span>
-                </div>
+                </motion.div>
 
                 {/* Bottom Copyright */}
                 <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4 pb-4">
